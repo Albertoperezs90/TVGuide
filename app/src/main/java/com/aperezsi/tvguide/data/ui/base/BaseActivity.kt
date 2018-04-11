@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.data.ui
+package com.aperezsi.tvguide.data.ui.base
 
 import android.os.Bundle
 import android.os.PersistableBundle

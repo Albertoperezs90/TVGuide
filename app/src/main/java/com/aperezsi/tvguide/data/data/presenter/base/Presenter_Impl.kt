@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.data.data.presenter
+package com.aperezsi.tvguide.data.data.presenter.base
 
 import com.aperezsi.tvguide.data.data.model.Program
 
