@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.views
+package com.aperezsi.tvguide.views.base
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -21,4 +21,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView{
 
     @LayoutRes
     protected abstract fun getContentResource(): Int
+
+    /**
+     * Initialization
+     */
+    protected abstract fun init(state: Bundle?)
 }

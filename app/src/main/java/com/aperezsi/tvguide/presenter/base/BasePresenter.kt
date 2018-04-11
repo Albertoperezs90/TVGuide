@@ -1,6 +1,5 @@
-package com.aperezsi.tvguide.presenter
+package com.aperezsi.tvguide.presenter.base
 
-import com.aperezsi.tvguide.presenter.base.BaseMVP
 import com.aperezsi.tvguide.views.base.BaseView
 
 open class BasePresenter<V : BaseView> : BaseMVP<V> {

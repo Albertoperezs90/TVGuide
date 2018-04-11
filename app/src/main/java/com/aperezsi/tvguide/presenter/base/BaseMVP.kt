@@ -1,6 +1,6 @@
-package com.aperezsi.tvguide.presenter.interfaces
+package com.aperezsi.tvguide.presenter.base
 
-import com.aperezsi.tvguide.views.interfaces.BaseView
+import com.aperezsi.tvguide.views.base.BaseView
 
 /**
  * Each presenter must implement this interface

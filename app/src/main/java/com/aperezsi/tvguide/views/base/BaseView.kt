@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.views.interfaces
+package com.aperezsi.tvguide.views.base
 
 interface BaseView {
 }
