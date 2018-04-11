@@ -1,9 +1,9 @@
 package com.aperezsi.tvguide.presenter
 
-import com.aperezsi.tvguide.presenter.interfaces.BaseMVP
-import com.aperezsi.tvguide.views.interfaces.BaseView
+import com.aperezsi.tvguide.presenter.base.BaseMVP
+import com.aperezsi.tvguide.views.base.BaseView
 
-class BasePresenter<V : BaseView> : BaseMVP<V> {
+open class BasePresenter<V : BaseView> : BaseMVP<V> {
 
     /**
      * Attached view

@@ -3,7 +3,7 @@ package com.aperezsi.tvguide.views
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
-import com.aperezsi.tvguide.views.interfaces.BaseView
+import com.aperezsi.tvguide.views.base.BaseView
 
 abstract class BaseActivity : AppCompatActivity(), BaseView{
 
