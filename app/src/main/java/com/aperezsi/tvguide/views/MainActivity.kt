@@ -29,5 +29,6 @@ class MainActivity: BaseActivity(), MainContract.View {
     override fun onTextLoaded(text: String) {
         mTextView.text = text
     }
+
     
 }
