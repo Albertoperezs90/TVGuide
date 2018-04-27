@@ -1,6 +1,6 @@
 package com.aperezsi.tvguide.data.data
 
-data class ProgramsResponse (val programResponse: List<ProgramResponse>)
+data class Response (val programsResponse: List<ProgramResponse>)
 data class ProgramResponse (val genericType: String?,
                             val id: String?,
                             val idChannel: String?,
