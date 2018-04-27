@@ -2,7 +2,6 @@ package com.aperezsi.tvguide.data.ui.main
 
 import android.os.Bundle
 import com.aperezsi.tvguide.R
-import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -12,6 +11,6 @@ class MainActivity : BaseActivity() {
     private val mainPresenter: MainPresenter
 
     init {
-        mainPresenter = MainPresenter(ProgramResponse(), thi)
+        mainPresenter = MainPresenter()
     }
 }
