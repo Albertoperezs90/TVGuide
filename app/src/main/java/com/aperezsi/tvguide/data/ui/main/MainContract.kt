@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.data.ui.main.impl
+package com.aperezsi.tvguide.data.ui.main
 
 import com.aperezsi.tvguide.data.utils.BasePresenter
 import com.aperezsi.tvguide.data.utils.BaseView
