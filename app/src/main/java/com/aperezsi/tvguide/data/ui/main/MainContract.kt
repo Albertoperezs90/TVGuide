@@ -1,7 +1,8 @@
 package com.aperezsi.tvguide.data.ui.main
 
-import com.aperezsi.tvguide.data.utils.BasePresenter
-import com.aperezsi.tvguide.data.utils.BaseView
+import com.aperezsi.tvguide.data.ui.base.BaseFragment
+import com.aperezsi.tvguide.data.ui.base.BasePresenter
+import com.aperezsi.tvguide.data.ui.base.BaseView
 
 interface MainContract {
 
@@ -11,6 +12,5 @@ interface MainContract {
 
     interface Presenter : BasePresenter {
 
-        fun loadCurrentPrograms()
     }
 }
