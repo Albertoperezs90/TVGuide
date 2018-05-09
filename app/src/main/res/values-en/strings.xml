@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Teletexto Digital</string>
+    <string name="fragment_now_title">Now</string>
+    <string name="fragment_tomorrow_title">Tomorrow</string>
+    <string name="fragment_schedule_title">Next Shows</string>
+</resources>
