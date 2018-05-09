@@ -1,6 +1,8 @@
 package com.aperezsi.tvguide.data.data
 
-data class APIResponse (val programsResponse: List<ProgramResponse>)
+import java.io.Serializable
+
+data class APIResponse (val programsResponse: List<ProgramResponse>) : Serializable
 data class ProgramResponse (val genericType: String?,
                             val id: String?,
                             val idChannel: String?,

@@ -1,4 +1,7 @@
 package com.aperezsi.tvguide.data.ui.base
 
-class BaseRepository {
+
+abstract class BaseRepository {
+
+    val monitor: Object = Object()
 }
