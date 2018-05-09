@@ -4,9 +4,9 @@ import com.aperezsi.tvguide.data.data.APIResponse
 
 interface IProgramRepository {
 
-    fun getNowPrograms() : List<APIResponse>
+    fun getNowPrograms() : APIResponse?
 
-    fun getTomorrowPrograms() : List<APIResponse>
+    fun getTomorrowPrograms() : APIResponse?
 
-    fun getSchedulePrograms() : List<APIResponse>
+    fun getSchedulePrograms() : APIResponse?
 }
