@@ -1,4 +1,4 @@
 package com.aperezsi.tvguide.data.ui.main.fragment.tomorrow
 
-class TomorrowPresenter {
+class TomorrowPresenter : TomorrowContract.Presenter {
 }

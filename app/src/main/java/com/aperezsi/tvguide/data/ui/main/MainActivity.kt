@@ -1,5 +1,6 @@
 package com.aperezsi.tvguide.data.ui.main
 
+import android.content.Context
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import com.aperezsi.tvguide.R
@@ -16,5 +17,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getToolbar(): Toolbar = toolbar
+    override fun getContext(): Context = this
     override fun setFragmentNavigation() = mainPresenter.setNavigation(supportFragmentManager, tabs, viewpager)
 }

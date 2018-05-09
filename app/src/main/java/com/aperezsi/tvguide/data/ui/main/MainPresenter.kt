@@ -17,7 +17,7 @@ class MainPresenter constructor(mainView: MainContract.View) : MainContract.Pres
     }
 
     override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout, viewPager: ViewPager) {
-        val adapter = FragmentAdapter(fragmentManager)
+        val adapter = FragmentAdapter(mainView.getContext(), fragmentManager)
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
     }

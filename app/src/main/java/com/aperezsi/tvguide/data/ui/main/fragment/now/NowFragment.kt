@@ -12,12 +12,10 @@ class NowFragment : BaseFragment(), NowContract.View {
 
     private lateinit var presenter: NowContract.Presenter
 
-    override fun getLayout(): Int {
-        TODO("CREAR EL LAYOUT DEL FRAGMENTO, DA ERROR")
-    }
+    override fun getLayout(): Int = R.layout.fragment_now
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         presenter = NowPresenter()
     }
 }
