@@ -1,18 +1,24 @@
 package com.aperezsi.tvguide.data.ui.main
 
-import com.aperezsi.tvguide.data.data.ProgramResponse
-import com.aperezsi.tvguide.data.ui.main.contract.MainContract
+import android.support.design.widget.TabLayout
+import android.support.v4.app.FragmentManager
+import android.support.v4.view.ViewPager
+import com.aperezsi.tvguide.data.ui.base.BaseFragment
+import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
+import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
+import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 
-class MainPresenter constructor(programResponse: ProgramResponse, mainView: MainContract.View) : MainContract.Presenter {
+class MainPresenter constructor(mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
-    private val mainView: MainContract.View = mainView
-    private val programResponse : ProgramResponse = programResponse
+    private var mainView: MainContract.View
 
-    override fun start() {
-        loadCurrentPrograms()
+    init {
+        this.mainView = mainView
     }
 
-    override fun loadCurrentPrograms() {
-        programResponse
+    override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout, viewPager: ViewPager) {
+        val adapter = FragmentAdapter(fragmentManager)
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 }
