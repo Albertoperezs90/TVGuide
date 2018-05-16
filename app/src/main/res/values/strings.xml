@@ -4,4 +4,7 @@
     <string name="fragment_now_title">Ahora</string>
     <string name="fragment_tomorrow_title">Mañana</string>
     <string name="fragment_schedule_title">Proximamente</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="google_signin">Ingresa con google</string>
 </resources>
