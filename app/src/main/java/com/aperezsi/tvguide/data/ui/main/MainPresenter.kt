@@ -20,10 +20,10 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     var nowPrograms: APIResponse? = null
 
 
-    override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout, viewPager: ViewPager) {
+    override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout?, viewPager: ViewPager?) {
         val adapter = FragmentAdapter(mainView.getContext(), fragmentManager)
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        viewPager!!.adapter = adapter
+        tabLayout!!.setupWithViewPager(viewPager)
     }
 
     override fun loadNowProgramRepository() {
