@@ -15,7 +15,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     abstract fun getContentResource(): Int
-    abstract fun getToolbar(): Toolbar
+    abstract fun getToolbar(): Toolbar?
     abstract fun setFragmentNavigation()
 
 }

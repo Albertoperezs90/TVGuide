@@ -15,6 +15,6 @@ interface FragmentNavigation {
     }
 
     interface Presenter {
-        fun setNavigation (fragmentManager: FragmentManager, tabLayout: TabLayout, viewPager: ViewPager)
+        fun setNavigation (fragmentManager: FragmentManager, tabLayout: TabLayout? = null, viewPager: ViewPager? = null)
     }
 }
