@@ -1,5 +1,6 @@
 package com.aperezsi.tvguide.data.service
 
+import com.aperezsi.tvguide.data.data.APIResponse
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
@@ -11,7 +12,7 @@ import rx.Observable
 interface ProgramAPI {
 
     @GET("now")
-    fun getNowProgramming() : Observable<ResponseBody>
+    fun getNowProgramming() : Observable<APIResponse>
 
     companion object {
         fun create(): ProgramAPI {
