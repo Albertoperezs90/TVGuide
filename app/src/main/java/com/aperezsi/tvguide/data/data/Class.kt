@@ -2,7 +2,7 @@ package com.aperezsi.tvguide.data.data
 
 import java.io.Serializable
 
-data class APIResponse (val programsResponse: List<ProgramResponse>) : Serializable
+data class APIResponse (val response: List<ProgramResponse>) : Serializable
 data class ProgramResponse (val genericType: String?,
                             val id: String?,
                             val idChannel: String?,
@@ -13,4 +13,4 @@ data class ProgramResponse (val genericType: String?,
                             val score: String?,
                             val image: String?,
                             val epochStart: String?,
-                            val epochEnd: String?)
+                            val epochEnd: String?) : Serializable
