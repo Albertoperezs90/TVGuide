@@ -20,11 +20,11 @@ class NowAdapter (val context: Context,
     }
 
     override fun getItemCount(): Int {
-        return dataList.programsResponse.size
+        return dataList.response.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList.programsResponse.get(position)
+        val item = dataList.response.get(position)
         holder.bind(item)
     }
 
