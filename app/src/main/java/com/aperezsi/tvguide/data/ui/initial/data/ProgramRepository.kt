@@ -22,10 +22,11 @@ class ProgramRepository (val initialFragmentPresenter: InitialFragmentPresenter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    body ->
-                        initialFragmentPresenter.loadAPIResponseList(body)
+                    apiResponse ->
+                        initialFragmentPresenter.loadAPIResponseList(apiResponse)
                 },{
                     error ->
+                        //TODO implement logger
                         Log.e("getNowPrograms ERROR", error.message)
                 })
     }

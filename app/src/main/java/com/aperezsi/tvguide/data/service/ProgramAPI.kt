@@ -16,13 +16,8 @@ interface ProgramAPI {
 
     companion object {
         fun create(): ProgramAPI {
-
-            val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-
             val retrofit = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl("http://apiguidetv.azurewebsites.net/")
                     .build()
