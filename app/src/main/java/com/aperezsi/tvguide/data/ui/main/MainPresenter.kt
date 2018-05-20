@@ -1,5 +1,6 @@
 package com.aperezsi.tvguide.data.ui.main
 
+import android.app.Activity
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
@@ -18,17 +19,4 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         viewPager!!.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
     }
-
-    override fun loadNowProgramRepository() {
-
-    }
-
-    override fun buildAdapter(layout: Int) {
-        loadNowProgramRepository()
-        val adapter = NowAdapter(mainView.getContext(), layout, nowPrograms!!)
-        mainView.attachAdapter(adapter)
-    }
-
-
-
 }
