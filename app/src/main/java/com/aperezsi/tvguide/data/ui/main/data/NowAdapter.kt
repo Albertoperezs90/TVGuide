@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_now_row.view.*
 
 class NowAdapter (val context: Context,
@@ -31,7 +33,15 @@ class NowAdapter (val context: Context,
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
-            itemView.tvTitle.text = dataItem.title
+            itemView.tvTitleChannel.text = dataItem.Category
+
+            if (dataItem.Image.isNullOrEmpty()){
+                itemView.ivRowProgram.setImageResource(R.drawable.no_image)
+            }else {
+                Picasso.get().load(dataItem.Image).into(itemView.ivRowProgram)
+            }
+
+            itemView.tvTitleProgram.text = dataItem.Title
         }
     }
 

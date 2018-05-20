@@ -12,12 +12,9 @@ interface MainContract {
 
     interface View : BaseView<Presenter> {
         fun getContext() : Context
-        fun setNowListPrograms(nowPrograms: APIResponse)
-        fun attachAdapter(adapter: NowAdapter)
     }
 
     interface Presenter : BasePresenter {
-        fun loadNowProgramRepository()
-        fun buildAdapter(layout: Int)
+
     }
 }
