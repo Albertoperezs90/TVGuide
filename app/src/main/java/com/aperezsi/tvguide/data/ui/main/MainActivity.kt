@@ -10,6 +10,7 @@ import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
+import com.arlib.floatingsearchview.FloatingSearchView
 import com.google.android.gms.common.api.Api
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_now.*
@@ -21,9 +22,24 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val mainPresenter: MainPresenter = MainPresenter(this)
 
     override fun getContentResource(): Int = R.layout.activity_main
-    override fun getToolbar(): Toolbar = toolbar
     override fun getContext(): Context = this
     override fun setFragmentNavigation() = mainPresenter.setNavigation(supportFragmentManager, tabs, viewpager)
 
+    override fun onStart() {
+        super.onStart()
+        attachDrawerLayout()
+        mSearchView.setOnQueryChangeListener({ oldQuery: String, newQuery: String ->
+            mSearchView.swapSuggestions(mainPresenter.filterSuggestions(oldQuery, newQuery))
+        })
+    }
+
+
+    override fun setPrograms() {
+        mainPresenter.setProgramsList(intent.getSerializableExtra("programs") as APIResponse)
+    }
+
+    override fun attachDrawerLayout() {
+        mSearchView.attachNavigationDrawerToMenuButton(drawerLayout)
+    }
 
 }

@@ -1,5 +1,8 @@
 package com.aperezsi.tvguide.data.data
 
+import android.os.Parcel
+import android.os.Parcelable
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import java.io.Serializable
 
 data class APIResponse (val response: List<ProgramResponse>) : Serializable
@@ -13,4 +16,43 @@ data class ProgramResponse (val GenericType: String?,
                             val Score: String?,
                             val Image: String?,
                             val EpochStart: String?,
-                            val EpochEnd: String?) : Serializable
+                            val EpochEnd: String?) : Serializable, SearchSuggestion {
+
+
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun describeContents(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getBody(): String {
+        return Title!!
+    }
+
+
+    companion object CREATOR : Parcelable.Creator<ProgramResponse> {
+        override fun createFromParcel(parcel: Parcel): ProgramResponse {
+            return ProgramResponse(parcel)
+        }
+
+        override fun newArray(size: Int): Array<ProgramResponse?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

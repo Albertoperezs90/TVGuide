@@ -11,12 +11,8 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     var nowPrograms: APIResponse? = null
 
-    override fun loadNowPrograms() {
-        nowPrograms = (nowView.getFragmentActivity() as Activity).intent.getSerializableExtra("programs") as APIResponse
-    }
-
     override fun buildAdapter(layout: Int) {
-        loadNowPrograms()
+        nowPrograms = nowView.getNowPrograms()
         val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
