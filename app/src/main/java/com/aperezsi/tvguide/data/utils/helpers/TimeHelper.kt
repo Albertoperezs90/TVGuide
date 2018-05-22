@@ -7,16 +7,21 @@ import java.util.*
 
 class TimeHelper {
 
-    fun epochToStringDate(epoch: String, format: String) : String {
-        val sdf = SimpleDateFormat(format)
-        return sdf.format(Date(epoch.toLong()))
-    }
+    companion object {
+        fun epochToStringDate(epoch: String, format: String) : String {
+            val sdf = SimpleDateFormat(format)
+            return sdf.format(Date(epoch.toLong()))
+        }
 
-    fun currentTime(timerEnum: TimerEnum) : Date {
-        return when (timerEnum){
-            TimerEnum.DATE, TimerEnum.EPOCH -> Calendar.getInstance().time
-            else -> Calendar.getInstance().time
+        fun currentTime(timerEnum: TimerEnum) : Date {
+            return when (timerEnum){
+                TimerEnum.DATE, TimerEnum.EPOCH -> Calendar.getInstance().time
+                else -> Calendar.getInstance().time
+            }
+        }
+
+        fun getCurrentEpoch() : Long {
+            return Calendar.getInstance().timeInMillis
         }
     }
-
 }

@@ -6,6 +6,8 @@ interface IProgramRepository {
 
     fun getNowPrograms()
 
+    fun getPrimetime(epoch: String)
+
     fun getTomorrowPrograms()
 
     fun getSchedulePrograms()
