@@ -1,6 +1,7 @@
 package com.aperezsi.tvguide.data.ui.main.data
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_now_row.view.*
 
@@ -33,14 +35,21 @@ class NowAdapter (val context: Context,
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
+
             Picasso.get().load("http://images.miguia.tv/channels/xhdpi/channel_${dataItem.IdChannel}.png").into(itemView.ivChannelLogo)
-            itemView.tvTimeStartProgramNow.text = "00:00"
+            itemView.tvTimeStartProgramNow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvTitleProgramNow.text = dataItem.Title
             if (dataItem.Image.isNullOrEmpty()){
                 itemView.ivProgramNow.setImageResource(R.drawable.no_image)
             }else {
                 Picasso.get().load(dataItem.Image).into(itemView.ivProgramNow)
             }
+
+            itemView.ivChannelLogo.setOnClickListener { loadCurrentChannel() }
+        }
+
+        private fun loadCurrentChannel() {
+//            val intent = Intent(context, ChannelActivity::class.java)
         }
     }
 

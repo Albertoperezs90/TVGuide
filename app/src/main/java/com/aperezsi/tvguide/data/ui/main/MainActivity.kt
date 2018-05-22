@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.View
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity

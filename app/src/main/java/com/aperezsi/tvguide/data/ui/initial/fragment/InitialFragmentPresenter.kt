@@ -12,7 +12,7 @@ class InitialFragmentPresenter (val initialView: InitialFragment) : InitialFragm
 
     override fun startAPICalls() {
         val programRepository = ProgramRepository(this)
-        programRepository.getPrimetime(TimeHelper.getCurrentEpoch().toString())
+        programRepository.getPrimetime(TimeHelper().getCurrentSecondsEpoch().toString())
     }
 
     override fun loadAPIResponseList(apiResponse: APIResponse) {

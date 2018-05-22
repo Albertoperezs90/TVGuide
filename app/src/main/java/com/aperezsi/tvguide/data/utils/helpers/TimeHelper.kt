@@ -7,10 +7,10 @@ import java.util.*
 
 class TimeHelper {
 
-    companion object {
+
         fun epochToStringDate(epoch: String, format: String) : String {
             val sdf = SimpleDateFormat(format)
-            return sdf.format(Date(epoch.toLong()))
+            return sdf.format(Date(epoch.toLong() * 1000))
         }
 
         fun currentTime(timerEnum: TimerEnum) : Date {
@@ -20,8 +20,8 @@ class TimeHelper {
             }
         }
 
-        fun getCurrentEpoch() : Long {
-            return Calendar.getInstance().timeInMillis
+        fun getCurrentSecondsEpoch() : Long {
+            return System.currentTimeMillis() / 1000
         }
-    }
+
 }
