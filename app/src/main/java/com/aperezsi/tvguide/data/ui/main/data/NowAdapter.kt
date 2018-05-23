@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aperezsi.tvguide.R
-import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.ui.detail.DetailActivity
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_now_row.view.*
+import java.io.Serializable
 
 class NowAdapter (val context: Context,
                   val layout: Int,
@@ -46,6 +48,13 @@ class NowAdapter (val context: Context,
             }
 
             itemView.ivChannelLogo.setOnClickListener { loadCurrentChannel() }
+            itemView.cardViewTopNow.setOnClickListener { loadDetailProgram(dataItem) }
+        }
+
+        private fun loadDetailProgram(dataItem: ProgramResponse) {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("program", Gson().toJson(dataItem))
+            context.startActivity(intent)
         }
 
         private fun loadCurrentChannel() {

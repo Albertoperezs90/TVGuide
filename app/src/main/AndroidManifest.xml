@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".data.ui.main.MainActivity" />
+        <activity android:name=".data.ui.detail.DetailActivity"/>
+        <activity android:name=".data.ui.channel.ChannelActivity"/>
     </application>
 
 </manifest>

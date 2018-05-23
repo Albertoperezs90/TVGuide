@@ -34,11 +34,11 @@ data class ProgramResponse (val GenericType: String?,
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun describeContents(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 1
     }
 
     override fun getBody(): String {
