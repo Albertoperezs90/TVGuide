@@ -13,10 +13,10 @@ import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
-    var nowPrograms: APIResponse? = null
+    var nowPrograms: List<ProgramResponse>? = null
 
     override fun setProgramsList(nowPrograms: APIResponse) {
-        this.nowPrograms = nowPrograms
+        this.nowPrograms = nowPrograms.response
     }
 
     override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout?, viewPager: ViewPager?) {
@@ -27,6 +27,6 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     }
 
     override fun filterSuggestions(oldQuery: String, newQuery: String) : MutableList<ProgramResponse> {
-        return nowPrograms!!.response.filter { it.Title!!.startsWith(newQuery) }.toMutableList()
+        return nowPrograms!!.filter { it.Title!!.startsWith(newQuery) }.toMutableList()
     }
 }

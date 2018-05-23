@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
 import kotlinx.android.synthetic.main.fragment_now.*
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_now.*
 /**
  * Created by alberto on 06/05/2018.
  */
-class NowFragment(private val nowPrograms: APIResponse) : BaseFragment(), NowContract.View {
+class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment(), NowContract.View {
 
     private val nowPresenter: NowContract.Presenter = NowPresenter(this)
     private lateinit var adapter: NowAdapter
@@ -38,7 +39,7 @@ class NowFragment(private val nowPrograms: APIResponse) : BaseFragment(), NowCon
         adapter.notifyDataSetChanged()
     }
 
-    override fun getNowPrograms(): APIResponse {
+    override fun getNowPrograms(): List<ProgramResponse> {
         return nowPrograms
     }
 }

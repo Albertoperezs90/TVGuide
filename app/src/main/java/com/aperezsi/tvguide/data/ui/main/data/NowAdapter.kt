@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_now_row.view.*
 
 class NowAdapter (val context: Context,
                   val layout: Int,
-                  val dataList: APIResponse) : RecyclerView.Adapter<NowAdapter.ViewHolder>() {
+                  val dataList: List<ProgramResponse>) : RecyclerView.Adapter<NowAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,11 +24,11 @@ class NowAdapter (val context: Context,
     }
 
     override fun getItemCount(): Int {
-        return dataList.response.size
+        return dataList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList.response.get(position)
+        val item = dataList.get(position)
         holder.bind(item)
     }
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.ScheduleFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
@@ -13,7 +14,7 @@ import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
 /**
  * Created by alberto on 07/05/2018.
  */
-class FragmentAdapter (val nowPrograms: APIResponse ,context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class FragmentAdapter (val nowPrograms: List<ProgramResponse> ,context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var context: Context = context
 
