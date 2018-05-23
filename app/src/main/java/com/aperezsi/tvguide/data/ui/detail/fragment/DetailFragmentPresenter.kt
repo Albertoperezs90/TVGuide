@@ -1,18 +1,27 @@
 package com.aperezsi.tvguide.data.ui.detail.fragment
 
 import android.graphics.BitmapFactory
+import android.support.design.widget.AppBarLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
 import android.view.Menu
 import android.widget.ImageView
+import android.widget.Toolbar
 import com.aperezsi.tvguide.R
+import com.aperezsi.tvguide.data.data.ProgramResponse
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.net.URL
 
 class DetailFragmentPresenter (val detailFragment: DetailFragmentContract.View) : DetailFragmentContract.Presenter {
 
     private var isAppbarExpanded: Boolean = false
     private lateinit var collapsedMenu: Menu
+    private lateinit var program: ProgramResponse
 
     override fun isAppbarExpanded(): Boolean = isAppbarExpanded
     override fun getMenu(): Menu = collapsedMenu
+    override fun getProgram(): ProgramResponse = program
 
     override fun setAppbarExpanded(expanded: Boolean) {
         isAppbarExpanded=expanded
@@ -23,9 +32,23 @@ class DetailFragmentPresenter (val detailFragment: DetailFragmentContract.View) 
     }
 
     override fun getPaletteColor(header: ImageView) {
-        val bitmap = BitmapFactory.decodeResource(detailFragment.getFragmentActivity().resources, R.drawable.logo)
-        Palette.from(bitmap).generate {palette ->
-            detailFragment.setCollapsingBarColor(palette.getMutedColor(R.attr.colorPrimary))
+        doAsync {
+            val bitmap = BitmapFactory.decodeStream(URL(program.Image).openStream())
+            uiThread {
+                Palette.from(bitmap).generate {palette ->
+                    detailFragment.setCollapsingBarColor(palette.getMutedColor(R.attr.colorPrimary))
+                }
+            }
         }
+    }
+
+    override fun setSupportActionBar(toolbar: android.support.v7.widget.Toolbar) {
+        (detailFragment.getFragmentActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        detailFragment.getFragmentActivity().invalidateOptionsMenu()
+    }
+
+
+    override fun setProgram(program: ProgramResponse) {
+        this.program = program
     }
 }

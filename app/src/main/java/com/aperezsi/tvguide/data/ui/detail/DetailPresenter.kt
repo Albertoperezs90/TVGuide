@@ -12,13 +12,13 @@ class DetailPresenter (val detailView: DetailContract.View) : DetailContract.Pre
 
     private var programResponse: ProgramResponse? = null
 
+    override fun setProgram(programResponse: ProgramResponse) {
+        this.programResponse = programResponse
+    }
+
     override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout?, viewPager: ViewPager?) {
         detailView.setProgram()
         val fragment = DetailFragment(programResponse!!)
         fragmentManager.beginTransaction().add(R.id.detailContainer, fragment).commit()
-    }
-
-    override fun setProgram(programResponse: ProgramResponse) {
-        this.programResponse = programResponse
     }
 }

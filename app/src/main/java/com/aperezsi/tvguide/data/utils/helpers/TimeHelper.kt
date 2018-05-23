@@ -1,5 +1,6 @@
 package com.aperezsi.tvguide.data.utils.helpers
 
+import android.text.format.DateUtils
 import com.aperezsi.tvguide.data.utils.enums.TimerEnum
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -21,7 +22,12 @@ class TimeHelper {
         }
 
         fun getCurrentSecondsEpoch() : Long {
-            return System.currentTimeMillis() / 1000
+            val calendar = GregorianCalendar()
+            calendar.time = Date(System.currentTimeMillis())
+            calendar.add(Calendar.HOUR, 1)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            return calendar.timeInMillis / 1000
         }
 
 }
