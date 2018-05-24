@@ -7,12 +7,16 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import rx.Observable
 
 interface ProgramAPI {
 
     @GET("now")
     fun getNowProgramming() : Observable<APIResponse>
+
+    @GET("primetime")
+    fun getPrimetime(@Query("epoch") epoch: String) : Observable<APIResponse>
 
     companion object {
         fun create(): ProgramAPI {
