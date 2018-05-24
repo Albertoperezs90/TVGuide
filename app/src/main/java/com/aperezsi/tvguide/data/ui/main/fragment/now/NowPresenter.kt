@@ -2,6 +2,7 @@ package com.aperezsi.tvguide.data.ui.main.fragment.now
 
 import android.app.Activity
 import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
 
 /**
@@ -9,17 +10,19 @@ import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
  */
 class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
-    var nowPrograms: APIResponse? = null
-
-    override fun loadNowPrograms() {
-        nowPrograms = (nowView.getFragmentActivity() as Activity).intent.getSerializableExtra("programs") as APIResponse
-    }
+    var nowPrograms: List<ProgramResponse>? = null
 
     override fun buildAdapter(layout: Int) {
-        loadNowPrograms()
-        val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
+        nowPrograms = nowView.getNowPrograms()
+        val adapter = NowAdapter(nowView.getFragmentContext(), layout, filterNowPrograms()!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
+    }
+
+    override fun filterNowPrograms(): List<ProgramResponse>? {
+        var filteredList: List<ProgramResponse>? = null
+        filteredList = nowPrograms!!.distinctBy { it.IdChannel }.toMutableList()
+        return filteredList
     }
 
 }
