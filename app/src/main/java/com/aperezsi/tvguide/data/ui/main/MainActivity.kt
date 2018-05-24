@@ -35,6 +35,10 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
 
+    override fun onBackPressed() {
+        //Nothing
+    }
+
     override fun setPrograms() {
         mainPresenter.setProgramsList(intent.getSerializableExtra("programs") as APIResponse)
     }
