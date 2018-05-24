@@ -12,6 +12,5 @@ class InitialActivity : BaseActivity(), InitialContract.View {
     private val initialPresenter = InitialPresenter()
 
     override fun getContentResource(): Int = R.layout.activity_initial
-    override fun getToolbar(): Toolbar? = null
     override fun setFragmentNavigation() = initialPresenter.setNavigation(supportFragmentManager)
 }

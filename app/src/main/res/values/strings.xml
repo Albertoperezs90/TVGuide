@@ -7,4 +7,5 @@
     <string name="username">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="google_signin">Ingresa con google</string>
+    <string name="search_view_hint">Buscar...</string>
 </resources>

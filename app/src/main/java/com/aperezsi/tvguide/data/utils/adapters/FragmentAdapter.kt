@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.aperezsi.tvguide.R
+import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.ScheduleFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
@@ -12,13 +14,13 @@ import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
 /**
  * Created by alberto on 07/05/2018.
  */
-class FragmentAdapter (context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class FragmentAdapter (val nowPrograms: List<ProgramResponse> ,context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var context: Context = context
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> NowFragment()
+            0 -> NowFragment(nowPrograms)
             1 -> TomorrowFragment()
             2 -> ScheduleFragment()
             else -> null

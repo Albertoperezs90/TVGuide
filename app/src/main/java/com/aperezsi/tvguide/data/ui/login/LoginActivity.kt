@@ -28,7 +28,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
 
     override fun getContentResource(): Int = R.layout.activity_login
-    override fun getToolbar(): Toolbar? = null
     override fun getContext(): Context = this
     override fun setFragmentNavigation() = loginPresenter.setNavigation(supportFragmentManager)
 

@@ -11,10 +11,25 @@ import rx.schedulers.Schedulers
 
 class ProgramRepository (val initialFragmentPresenter: InitialFragmentPresenter) : BaseRepository(), IProgramRepository {
 
+
     private val programAPI by lazy {
         ProgramAPI.create()
     }
 
+    override fun getPrimetime(epoch: String) {
+
+        programAPI.getPrimetime(epoch)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    apiResponse ->
+                        initialFragmentPresenter.loadAPIResponseList(apiResponse)
+                }, {
+                    error ->
+                        //TODO implement logger
+                        Log.e("getPrimetime ERROR", error.message)
+                })
+    }
 
     override fun getNowPrograms() {
 
