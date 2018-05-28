@@ -3,7 +3,9 @@ package com.aperezsi.tvguide.data.ui.main.fragment.now
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
@@ -26,6 +28,10 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
 
     override fun onStart() {
         super.onStart()
+        swipe_container.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            Toast.makeText(activity, "refresh", Toast.LENGTH_LONG).show()
+            swipe_container.isRefreshing = false
+        })
         nowPresenter.buildAdapter(R.layout.fragment_now_row)
     }
 

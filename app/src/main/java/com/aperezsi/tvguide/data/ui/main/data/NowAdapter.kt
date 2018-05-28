@@ -37,10 +37,10 @@ class NowAdapter (val context: Context,
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
-
             Picasso.get().load("http://images.miguia.tv/channels/xhdpi/channel_${dataItem.IdChannel}.png").into(itemView.ivChannelLogo)
             itemView.tvTimeStartProgramNow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvTitleProgramNow.text = dataItem.Title
+            itemView.tvTempCapNow.text = dataItem.Category
             if (dataItem.Image.isNullOrEmpty()){
                 itemView.ivProgramNow.setImageResource(R.drawable.no_image)
             }else {

@@ -46,8 +46,14 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
             }
         }
 
-        horaI.text = TimeHelper().epochToStringDate(detailFragmentPresenter.getProgram().EpochStart!!, "HH:mm")
-        horaF.text = TimeHelper().epochToStringDate(detailFragmentPresenter.getProgram().EpochEnd!!, "HH:mm")
+        val epochStart = detailFragmentPresenter.getProgram().EpochStart
+        val epochEnd = detailFragmentPresenter.getProgram().EpochEnd
+        horaI.text = TimeHelper().epochToStringDate(epochStart!!, "HH:mm")
+        horaF.text = TimeHelper().epochToStringDate(epochEnd!!, "HH:mm")
+        progressBarHorizontal.progress = TimeHelper().getCurrentPercentage(
+                epochStart.toLong(),
+                epochEnd.toLong()
+        )
         type.text = detailFragmentPresenter.getProgram().Type
         description.text = detailFragmentPresenter.getProgram().Description
     }
