@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Teletexto Digital</string>
+    <string name="fragment_now_title">Now</string>
+    <string name="fragment_tomorrow_title">Tomorrow</string>
+    <string name="fragment_schedule_title">Next Shows</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="google_signin">Google Sign-In</string>
+    <string name="search_view_hint">Search...</string>
+    <string name="drawer_greetings">Hello! </string>
+    <string name="drawer_login">Register now!</string>
+</resources>

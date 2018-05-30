@@ -6,6 +6,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="hintColor" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/light_blue</item>
+        <item name="android:textColorHint">@color/light_blue</item>
+        <item name="colorAccent">@color/light_blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Theme.Hint.LightBlue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/light_blue</item>
+        <item name="colorControlActivated">@color/light_blue</item>
+        <item name="colorControlHighlight">@color/light_blue</item>
+    </style>
+
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
 </resources>

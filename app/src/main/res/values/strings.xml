@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TVGuide</string>
+    <string name="app_name">Teletexto Digital</string>
+    <string name="fragment_now_title">Ahora</string>
+    <string name="fragment_tomorrow_title">Mañana</string>
+    <string name="fragment_schedule_title">Proximamente</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="google_signin">Ingresa con google</string>
+    <string name="search_view_hint">Buscar...</string>
+    <string name="drawer_greetings">Hola! </string>
+    <string name="drawer_login">Registrate ahora!</string>
 </resources>
