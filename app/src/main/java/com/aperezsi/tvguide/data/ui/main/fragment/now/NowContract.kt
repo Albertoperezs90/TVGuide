@@ -18,11 +18,14 @@ interface NowContract {
         fun getFragmentContext() : Context
         fun attachAdapter(adapter: NowAdapter)
         fun notifyDataAdapterChanged()
+        fun setContainerRefresh(flag: Boolean)
         fun getNowPrograms() : List<ProgramResponse>
     }
 
     interface Presenter : BasePresenter {
         fun buildAdapter(layout: Int)
+        fun refreshPrograms()
+        fun updatePrograms(programs: List<ProgramResponse>?)
         fun filterNowPrograms() : List<ProgramResponse>?
     }
 }

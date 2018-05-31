@@ -4,6 +4,8 @@ import android.app.Activity
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
+import com.aperezsi.tvguide.data.ui.main.data.NowRepository
+import com.aperezsi.tvguide.data.ui.main.data.ProgramRepository
 
 /**
  * Created by alberto on 06/05/2018.
@@ -11,6 +13,7 @@ import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
 class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     var nowPrograms: List<ProgramResponse>? = null
+    val nowRepository: NowRepository = NowRepository(this)
 
     override fun buildAdapter(layout: Int) {
         nowPrograms = nowView.getNowPrograms()
@@ -24,5 +27,18 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
         filteredList = nowPrograms!!.distinctBy { it.IdChannel }.toMutableList()
         return filteredList
     }
+
+    override fun refreshPrograms() {
+        nowRepository.refreshPrograms()
+    }
+
+
+    override fun updatePrograms(programs: List<ProgramResponse>?) {
+        nowPrograms = programs
+        nowView.notifyDataAdapterChanged()
+        nowView.setContainerRefresh(false)
+    }
+
+
 
 }

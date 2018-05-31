@@ -39,10 +39,14 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
     override fun initAttributes() {
         collapsing_toolbar.title = detailFragmentPresenter.getProgram().Title
 
-        doAsync {
-            val bitmap = BitmapFactory.decodeStream(URL(detailFragmentPresenter.getProgram().Image).openStream())
-            uiThread {
-                header.setImageBitmap(bitmap)
+        if (program.Image.isNullOrEmpty()){
+            header.setImageResource(R.drawable.no_image)
+        }else {
+            doAsync {
+                val bitmap = BitmapFactory.decodeStream(URL(detailFragmentPresenter.getProgram().Image).openStream())
+                uiThread {
+                    header.setImageBitmap(bitmap)
+                }
             }
         }
 
@@ -54,7 +58,8 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
                 epochStart.toLong(),
                 epochEnd.toLong()
         )
-        type.text = detailFragmentPresenter.getProgram().Type
+
+        type.text = detailFragmentPresenter.getProgram().Category
         description.text = detailFragmentPresenter.getProgram().Description
     }
 

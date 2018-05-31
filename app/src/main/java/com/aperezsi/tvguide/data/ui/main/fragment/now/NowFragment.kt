@@ -28,11 +28,10 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
 
     override fun onStart() {
         super.onStart()
-        swipe_container.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
-            Toast.makeText(activity, "refresh", Toast.LENGTH_LONG).show()
-            swipe_container.isRefreshing = false
-        })
         nowPresenter.buildAdapter(R.layout.fragment_now_row)
+        swipe_container.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            nowPresenter.refreshPrograms()
+        })
     }
 
     override fun attachAdapter(adapter: NowAdapter) {
@@ -47,5 +46,9 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
 
     override fun getNowPrograms(): List<ProgramResponse> {
         return nowPrograms
+    }
+
+    override fun setContainerRefresh(flag: Boolean) {
+       swipe_container.isRefreshing = flag
     }
 }
