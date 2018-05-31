@@ -21,7 +21,7 @@
            android:id="@+id/cardViewTopNow"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           app:cardCornerRadius="10dp"
+           app:cardCornerRadius="5dp"
            app:cardElevation="4dp"
            app:cardUseCompatPadding="true">
 

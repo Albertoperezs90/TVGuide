@@ -33,15 +33,22 @@ class ChannelAdapter (val context: Context,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList.get(position)
+        val item = dataList[position]
         holder.bind(item)
     }
 
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
-            itemView.textView.text = "PRUEBA CADENA"
-            itemView.tvTitleChannelRow.text = dataItem.Title
+            if (dataItem.Image.isNullOrEmpty()){
+                itemView.ivFragmentChannelRow.setImageResource(R.drawable.no_image)
+            }else {
+                Picasso.get().load(dataItem.Image).into(itemView.ivFragmentChannelRow)
+            }
+
+            itemView.tvFragmentChannelEpochStartRow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
+            itemView.tvFragmentChannelTitleRow.text = dataItem.Title
+            itemView.tvFragmentChannelCategoryRow.text = dataItem.Category
         }
     }
 

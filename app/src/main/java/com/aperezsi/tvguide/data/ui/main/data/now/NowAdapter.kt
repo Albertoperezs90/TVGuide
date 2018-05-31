@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.ui.channel.ChannelActivity
 import com.aperezsi.tvguide.data.ui.detail.DetailActivity
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 import com.google.gson.Gson
@@ -48,7 +49,7 @@ class NowAdapter (val context: Context,
                 Picasso.get().load(dataItem.Image).into(itemView.ivProgramNow)
             }
 
-            itemView.ivChannelLogo.setOnClickListener { loadCurrentChannel() }
+            itemView.ivChannelLogo.setOnClickListener { loadCurrentChannel(dataItem.IdChannel) }
             itemView.cardViewTopNow.setOnClickListener { loadDetailProgram(dataItem) }
         }
 
@@ -59,8 +60,10 @@ class NowAdapter (val context: Context,
             context.startActivity(intent)
         }
 
-        private fun loadCurrentChannel() {
-//            val intent = Intent(context, ChannelActivity::class.java)
+        private fun loadCurrentChannel(idChannel: String?) {
+            val intent = Intent(context, ChannelActivity::class.java)
+            intent.putExtra("idChannel", idChannel)
+            context.startActivity(intent)
         }
     }
 

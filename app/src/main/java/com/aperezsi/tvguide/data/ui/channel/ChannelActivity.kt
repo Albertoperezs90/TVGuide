@@ -5,8 +5,13 @@ import com.aperezsi.tvguide.data.ui.base.BaseActivity
 
 class ChannelActivity : BaseActivity(), ChannelContract.View {
 
+
     private val channelPresenter = ChannelPresenter(this)
 
     override fun getContentResource(): Int = R.layout.activity_channel
     override fun setFragmentNavigation() = channelPresenter.setNavigation(supportFragmentManager)
+
+    override fun extractIdChannel(): String {
+        return intent.getStringExtra("idChannel")
+    }
 }
