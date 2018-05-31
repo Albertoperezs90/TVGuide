@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by alberto on 31/05/2018.
  */
-class ChannelRepository (private val channelFragmentPresenter: ChannelFragmentPresenter) : IChannelRepository {
+class ChannelRepository (private val channelPresenter: ChannelPresenter) : IChannelRepository {
 
     private val programApi by lazy {
         ProgramAPI.create()
@@ -23,7 +23,7 @@ class ChannelRepository (private val channelFragmentPresenter: ChannelFragmentPr
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     apiResponse ->
-                    channelFragmentPresenter.refreshDataList(apiResponse.response)
+                    channelPresenter.refreshDataList(apiResponse.response)
                 }, {
                     error ->
                     //TODO implement logger

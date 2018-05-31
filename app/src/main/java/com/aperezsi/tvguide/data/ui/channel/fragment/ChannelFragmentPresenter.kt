@@ -6,11 +6,11 @@ import com.aperezsi.tvguide.data.ui.channel.data.ChannelRepository
 
 class ChannelFragmentPresenter (val channelFragment: ChannelFragmentContract.View) : ChannelFragmentContract.Presenter {
 
-    private val channelRepository = ChannelRepository(this)
+    //private val channelRepository = ChannelRepository(this)
     private var programs: List<ProgramResponse>? = null
 
     override fun loadData(idChannel: String) {
-        channelRepository.getChannelProgamming(idChannel)
+        //channelRepository.getChannelProgamming(idChannel)
     }
 
     override fun buildAdapter(layout: Int) {
