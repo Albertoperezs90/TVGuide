@@ -10,12 +10,8 @@ import com.aperezsi.tvguide.data.ui.base.BaseFragment
  */
 class TomorrowFragment : BaseFragment(), TomorrowContract.View {
 
-    private lateinit var tomorrowPresenter: TomorrowPresenter
+    private val tomorrowPresenter: TomorrowPresenter = TomorrowPresenter(this)
 
     override fun getLayout(): Int = R.layout.fragment_tomorrow
 
-    override fun onStart() {
-        super.onStart()
-        tomorrowPresenter = TomorrowPresenter()
-    }
 }
