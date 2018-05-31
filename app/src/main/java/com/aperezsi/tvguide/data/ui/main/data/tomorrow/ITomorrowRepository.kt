@@ -1,11 +1,11 @@
-package com.aperezsi.tvguide.data.ui.main.data.now
+package com.aperezsi.tvguide.data.ui.main.data.tomorrow
 
 /**
  * Created by alberto on 31/05/2018.
  */
-interface INowRepository {
+interface ITomorrowRepository {
 
-    fun refreshPrograms()
-
+    fun getTomorrowPrograms(epoch: String)
+    fun refreshPrograms(epoch: String)
     fun filterPrograms()
 }

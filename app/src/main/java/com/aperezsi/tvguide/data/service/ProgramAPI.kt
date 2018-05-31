@@ -18,6 +18,9 @@ interface ProgramAPI {
     @GET("primetime")
     fun getPrimetime(@Query("epoch") epoch: String) : Observable<APIResponse>
 
+    @GET("channel")
+    fun getChannelProgamming(@Query("id") idChannel: String) : Observable<APIResponse>
+
     companion object {
         fun create(): ProgramAPI {
             val retrofit = Retrofit.Builder()

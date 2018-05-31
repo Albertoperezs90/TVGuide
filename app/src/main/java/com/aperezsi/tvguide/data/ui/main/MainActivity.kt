@@ -1,25 +1,13 @@
 package com.aperezsi.tvguide.data.ui.main
 
 import android.content.Context
-import android.media.tv.TvContract
-import android.os.Bundle
 import android.support.v4.view.GravityCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.view.Gravity
 import android.view.MenuItem
-import android.view.View
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
-import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
-import com.arlib.floatingsearchview.FloatingSearchView
-import com.google.android.gms.common.api.Api
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_now.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity(), MainContract.View {

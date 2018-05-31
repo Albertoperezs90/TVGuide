@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.data.ui.main.data
+package com.aperezsi.tvguide.data.ui.main.data.now
 
 import android.content.Context
 import android.content.Intent
@@ -13,11 +13,12 @@ import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_now_row.view.*
-import java.io.Serializable
 
 class NowAdapter (val context: Context,
                   val layout: Int,
                   val dataList: List<ProgramResponse>) : RecyclerView.Adapter<NowAdapter.ViewHolder>() {
+
+    private val TAG = "NowAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -54,6 +55,7 @@ class NowAdapter (val context: Context,
         private fun loadDetailProgram(dataItem: ProgramResponse) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("program", Gson().toJson(dataItem))
+            intent.putExtra("fragment", TAG)
             context.startActivity(intent)
         }
 

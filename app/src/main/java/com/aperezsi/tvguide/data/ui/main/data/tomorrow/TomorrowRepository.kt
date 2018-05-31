@@ -1,27 +1,43 @@
-package com.aperezsi.tvguide.data.ui.main.data.now
+package com.aperezsi.tvguide.data.ui.main.data.tomorrow
 
 import android.util.Log
 import com.aperezsi.tvguide.data.service.ProgramAPI
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowPresenter
+import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowPresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
  * Created by alberto on 31/05/2018.
  */
-class NowRepository (val nowPresenter: NowPresenter) : INowRepository {
+class TomorrowRepository (val tomorrowPresenter: TomorrowPresenter) : ITomorrowRepository {
+
 
     private val programAPI by lazy {
         ProgramAPI.create()
     }
 
-    override fun refreshPrograms() {
-        programAPI.getNowProgramming()
+    override fun getTomorrowPrograms(epoch: String) {
+        programAPI.getPrimetime(epoch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     apiResponse ->
-                    nowPresenter.updatePrograms(apiResponse.response)
+                    tomorrowPresenter.updatePrograms(apiResponse.response)
+                }, {
+                    error ->
+                    //TODO implement logger
+                    Log.e("refreshPrograms ERROR", error.message)
+                })
+    }
+
+    override fun refreshPrograms(epoch: String) {
+        programAPI.getPrimetime(epoch)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    apiResponse ->
+                    tomorrowPresenter.updatePrograms(apiResponse.response)
                 }, {
                     error ->
                     //TODO implement logger

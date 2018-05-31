@@ -1,11 +1,8 @@
 package com.aperezsi.tvguide.data.ui.main.fragment.now
 
-import android.app.Activity
-import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
-import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
-import com.aperezsi.tvguide.data.ui.main.data.NowRepository
-import com.aperezsi.tvguide.data.ui.main.data.ProgramRepository
+import com.aperezsi.tvguide.data.ui.main.data.now.NowAdapter
+import com.aperezsi.tvguide.data.ui.main.data.now.NowRepository
 
 /**
  * Created by alberto on 06/05/2018.
@@ -17,7 +14,8 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     override fun buildAdapter(layout: Int) {
         nowPrograms = nowView.getNowPrograms()
-        val adapter = NowAdapter(nowView.getFragmentContext(), layout, filterNowPrograms()!!)
+        nowPrograms = filterNowPrograms()
+        val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
     }
