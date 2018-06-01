@@ -8,4 +8,6 @@
     <string name="password">Contraseña</string>
     <string name="google_signin">Ingresa con google</string>
     <string name="search_view_hint">Buscar...</string>
+    <string name="drawer_greetings">Hola! </string>
+    <string name="drawer_login">Registrate ahora!</string>
 </resources>

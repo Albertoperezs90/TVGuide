@@ -38,7 +38,7 @@ data class ProgramResponse (val GenericType: String?,
     }
 
     override fun describeContents(): Int {
-        return 1
+        return Parcelable.CONTENTS_FILE_DESCRIPTOR
     }
 
     override fun getBody(): String {

@@ -3,12 +3,13 @@ package com.aperezsi.tvguide.data.ui.main.fragment.now
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.aperezsi.tvguide.R
-import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
-import com.aperezsi.tvguide.data.ui.main.data.NowAdapter
+import com.aperezsi.tvguide.data.ui.main.data.now.NowAdapter
 import kotlinx.android.synthetic.main.fragment_now.*
 
 @SuppressLint("ValidFragment")
@@ -27,12 +28,15 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
     override fun onStart() {
         super.onStart()
         nowPresenter.buildAdapter(R.layout.fragment_now_row)
+        swipe_container.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            nowPresenter.refreshPrograms()
+        })
     }
 
     override fun attachAdapter(adapter: NowAdapter) {
         this.adapter = adapter
         rvNow.layoutManager = LinearLayoutManager(context)
-        rvNow.adapter = adapter
+        rvNow.adapter = this.adapter
     }
 
     override fun notifyDataAdapterChanged() {
@@ -41,5 +45,9 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
 
     override fun getNowPrograms(): List<ProgramResponse> {
         return nowPrograms
+    }
+
+    override fun setContainerRefresh(flag: Boolean) {
+       swipe_container.isRefreshing = flag
     }
 }
