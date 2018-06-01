@@ -7,10 +7,10 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_app">
+        android:background="@color/colorPrimaryDark">
 
         <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/mSearchView"
+            android:id="@+id/mSearchViewT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
@@ -24,7 +24,7 @@
             app:floatingSearch_close_search_on_keyboard_dismiss="true" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabsT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"

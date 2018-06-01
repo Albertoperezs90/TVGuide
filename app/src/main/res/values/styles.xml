@@ -28,4 +28,17 @@
         <item name="android:minHeight">10dip</item>
         <item name="android:maxHeight">20dip</item>
     </style>
+
+    <style name="SearchView">
+        <item name="floatingSearch_backgroundColor">@android:color/white</item>
+        <item name="floatingSearch_viewSearchInputTextColor">@color/black</item>
+        <item name="floatingSearch_viewSuggestionItemTextColor">@color/black</item>
+        <item name="floatingSearch_hintTextColor">@color/dark_gray</item>
+        <item name="floatingSearch_dividerColor">@color/dark_gray</item>
+        <item name="floatingSearch_clearBtnColor">@color/dark_gray</item>
+        <item name="floatingSearch_leftActionColor">@color/dark_gray</item>
+        <item name="floatingSearch_menuItemIconColor">@color/dark_gray</item>
+        <item name="floatingSearch_suggestionRightIconColor">@color/dark_gray</item>
+        <item name="floatingSearch_actionMenuOverflowColor">@android:color/white</item>
+    </style>
 </resources>

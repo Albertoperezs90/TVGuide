@@ -39,16 +39,27 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
     override fun initAttributes() {
         collapsing_toolbar.title = detailFragmentPresenter.getProgram().Title
 
-        doAsync {
-            val bitmap = BitmapFactory.decodeStream(URL(detailFragmentPresenter.getProgram().Image).openStream())
-            uiThread {
-                header.setImageBitmap(bitmap)
+        if (program.Image.isNullOrEmpty()){
+            header.setImageResource(R.drawable.no_image)
+        }else {
+            doAsync {
+                val bitmap = BitmapFactory.decodeStream(URL(detailFragmentPresenter.getProgram().Image).openStream())
+                uiThread {
+                    header.setImageBitmap(bitmap)
+                }
             }
         }
 
-        horaI.text = TimeHelper().epochToStringDate(detailFragmentPresenter.getProgram().EpochStart!!, "HH:mm")
-        horaF.text = TimeHelper().epochToStringDate(detailFragmentPresenter.getProgram().EpochEnd!!, "HH:mm")
-        type.text = detailFragmentPresenter.getProgram().Type
+        val epochStart = detailFragmentPresenter.getProgram().EpochStart
+        val epochEnd = detailFragmentPresenter.getProgram().EpochEnd
+        horaI.text = TimeHelper().epochToStringDate(epochStart!!, "HH:mm")
+        horaF.text = TimeHelper().epochToStringDate(epochEnd!!, "HH:mm")
+        progressBarHorizontal.progress = TimeHelper().getCurrentPercentage(
+                epochStart.toLong(),
+                epochEnd.toLong()
+        )
+
+        type.text = detailFragmentPresenter.getProgram().Category
         description.text = detailFragmentPresenter.getProgram().Description
     }
 
