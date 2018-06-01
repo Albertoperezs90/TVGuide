@@ -40,4 +40,14 @@ class TimeHelper {
             return progress
         }
 
+
+        fun getTomorrowEpochDate() : String {
+            val calendar = GregorianCalendar()
+            calendar.time = Date(System.currentTimeMillis())
+            calendar.add(Calendar.DATE, 1)
+            calendar.set(Calendar.HOUR, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            return (calendar.timeInMillis / 1000).toString()
+        }
+
 }

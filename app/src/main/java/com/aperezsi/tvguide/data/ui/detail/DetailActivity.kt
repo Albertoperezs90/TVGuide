@@ -13,6 +13,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
     override fun setFragmentNavigation() = detailPresenter.setNavigation(supportFragmentManager)
 
     override fun setProgram() {
-        detailPresenter.setProgram(Gson().fromJson(intent.getStringExtra("program"), ProgramResponse::class.java))
+        val program = Gson().fromJson(intent.getStringExtra("program"), ProgramResponse::class.java)
+        detailPresenter.setProgram(program)
     }
 }
