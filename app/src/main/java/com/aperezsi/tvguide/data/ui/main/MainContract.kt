@@ -13,11 +13,13 @@ interface MainContract {
         fun getContext() : Context
         fun setPrograms()
         fun attachDrawerLayout()
+        fun customizeSearchView()
         fun initListeners()
+        fun refreshAdapter()
     }
 
     interface Presenter : BasePresenter {
         fun setProgramsList(nowPrograms: APIResponse)
-        fun filterSuggestions(oldQuery: String, newQuery: String) : MutableList<ProgramResponse>
+        fun filterSuggestions(newQuery: String) : List<ProgramResponse>
     }
 }

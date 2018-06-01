@@ -10,20 +10,24 @@ import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
-    var nowPrograms: List<ProgramResponse>? = null
+    var nowPrograms: MutableList<ProgramResponse>? = null
+    var originalProgramList: List<ProgramResponse>? = null
 
     override fun setProgramsList(nowPrograms: APIResponse) {
-        this.nowPrograms = nowPrograms.response
+        this.nowPrograms = nowPrograms.response.toMutableList()
+        this.originalProgramList = nowPrograms.response
     }
 
     override fun setNavigation(fragmentManager: FragmentManager, tabLayout: TabLayout?, viewPager: ViewPager?) {
         mainView.setPrograms()
-        val adapter = FragmentAdapter(nowPrograms!!, mainView.getContext(), fragmentManager)
+        val adapter = FragmentAdapter(nowPrograms!!.toList(), mainView.getContext(), fragmentManager)
         viewPager!!.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
     }
 
-    override fun filterSuggestions(oldQuery: String, newQuery: String) : MutableList<ProgramResponse> {
-        return nowPrograms!!.filter { it.Title!!.startsWith(newQuery) }.toMutableList()
+    override fun filterSuggestions(newQuery: String) : List<ProgramResponse> {
+        nowPrograms = nowPrograms!!.filter { it.Title!!.startsWith(newQuery) }.toMutableList()
+        mainView.refreshAdapter()
+        return nowPrograms!!.toList()
     }
 }
