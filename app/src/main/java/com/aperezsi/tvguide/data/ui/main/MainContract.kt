@@ -13,6 +13,7 @@ interface MainContract {
         fun getContext() : Context
         fun setPrograms()
         fun attachDrawerLayout()
+        fun initListeners()
     }
 
     interface Presenter : BasePresenter {

@@ -1,7 +1,12 @@
 package com.aperezsi.tvguide.data.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
@@ -9,10 +14,15 @@ import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
+import com.aperezsi.tvguide.R.id.textView
+import android.widget.Toast
+
+
 
 class MainActivity : BaseActivity(), MainContract.View {
 
     private val mainPresenter: MainPresenter = MainPresenter(this)
+    private lateinit var searchView: SearchView
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getContext(): Context = this
@@ -20,13 +30,38 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onStart() {
         super.onStart()
+        setSupportActionBar(toolbar)
         navigation_view.setNavigationItemSelectedListener(this)
         attachDrawerLayout()
-        mSearchView.setOnQueryChangeListener({ oldQuery: String, newQuery: String ->
-            mSearchView.swapSuggestions(mainPresenter.filterSuggestions(oldQuery, newQuery))
+    }
+
+
+    override fun initListeners() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Toast.makeText(this@MainActivity, R.string.app_name, Toast.LENGTH_SHORT).show()
+                //se oculta el EditText
+                searchView.setQuery("", false)
+                searchView.isIconified = true
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                toast(newText)
+                return true
+            }
         })
     }
 
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_view, menu)
+        searchView = menu!!.findItem(R.id.action_search).actionView as SearchView
+        menu.findItem(R.id.action_search).collapseActionView()
+        searchView.queryHint = getText(R.string.search_view_hint)
+        initListeners()
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -39,7 +74,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun attachDrawerLayout() {
-        mSearchView.attachNavigationDrawerToMenuButton(drawerLayout)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

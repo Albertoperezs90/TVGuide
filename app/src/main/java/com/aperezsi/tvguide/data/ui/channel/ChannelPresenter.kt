@@ -27,6 +27,7 @@ class ChannelPresenter (val channelView: ChannelContract.View) : ChannelContract
     }
 
     override fun refreshDataList(programs: List<ProgramResponse>) {
+        channelView.endProgressView()
         if (this.programs == null){
             this.programs = programs
             channelView.setFragmentNavigation()

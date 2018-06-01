@@ -11,6 +11,8 @@ interface ChannelContract {
         fun extractIdChannel() : String
         fun getActivityContext() : Context
         fun setFragmentNavigation()
+        fun startProgressView()
+        fun endProgressView()
     }
 
     interface Presenter : BasePresenter {
