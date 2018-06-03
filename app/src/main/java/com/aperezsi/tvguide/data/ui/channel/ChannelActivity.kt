@@ -6,6 +6,7 @@ import android.view.View
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import com.aperezsi.tvguide.data.ui.base.BaseDelayedActivity
+import com.aperezsi.tvguide.data.utils.Constants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_channel.*
 
@@ -27,7 +28,7 @@ class ChannelActivity : BaseDelayedActivity(), ChannelContract.View {
     }
 
     override fun startProgressView() {
-        Picasso.get().load("http://images.miguia.tv/channels/xhdpi/channel_${extractIdChannel()}.png").into(header)
+        Picasso.get().load("${Constants.ImageEndPoint}${extractIdChannel()}${Constants.PngExtension}").into(header)
         gray_delayed_view.visibility = View.VISIBLE
         gray_delayed_view.animate().alpha(0.2F)
         channelProgress.isIndeterminate = true

@@ -3,11 +3,8 @@ package com.aperezsi.tvguide.data.ui.channel
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
-import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.channel.data.ChannelRepository
-import com.aperezsi.tvguide.data.ui.channel.fragment.ChannelFragment
-import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.adapters.FragmentChannelAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 
