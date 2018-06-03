@@ -5,25 +5,27 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.aperezsi.tvguide.R
-import com.aperezsi.tvguide.data.data.APIResponse
-import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.data.ChannelProgamming
 import com.aperezsi.tvguide.data.ui.channel.fragment.today.TodayChannelFragment
-import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
-import com.aperezsi.tvguide.data.ui.main.fragment.schedule.ScheduleFragment
-import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
+import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow.TomorrowChannelFragment
+import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_1.Tomorrow1ChannelFragment
+import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_2.Tomorrow2ChannelFragment
+import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_3.Tomorrow3ChannelFragment
 
 /**
  * Created by alberto on 07/05/2018.
  */
-class FragmentChannelAdapter (val channelPrograms: List<ProgramResponse>, context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class FragmentChannelAdapter (val channelPrograms: ChannelProgamming, context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var context: Context = context
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> TodayChannelFragment()
-            1 -> TomorrowFragment()
-            2 -> ScheduleFragment()
+            0 -> TodayChannelFragment(channelPrograms.today)
+            1 -> TomorrowChannelFragment(channelPrograms.tomorrow)
+            2 -> Tomorrow1ChannelFragment(channelPrograms.tomorrow1)
+            3 -> Tomorrow2ChannelFragment(channelPrograms.tomorrow2)
+            4 -> Tomorrow3ChannelFragment(channelPrograms.tomorrow3)
             else -> null
         }
     }
@@ -37,5 +39,5 @@ class FragmentChannelAdapter (val channelPrograms: List<ProgramResponse>, contex
         }
     }
 
-    override fun getCount(): Int  = 3
+    override fun getCount(): Int  = 5
 }
