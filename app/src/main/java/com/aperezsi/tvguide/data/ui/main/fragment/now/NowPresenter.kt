@@ -24,7 +24,8 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     override fun filterNowPrograms(): List<ProgramResponse>? {
         var filteredList: List<ProgramResponse>? = null
-        filteredList = nowPrograms!!
+        filteredList =
+                nowPrograms!!
                 .filter { TimeHelper().getCurrentSecondsEpoch() < it.EpochEnd!!.toInt() }
                 .distinctBy { it.IdChannel }
                 .toMutableList()
