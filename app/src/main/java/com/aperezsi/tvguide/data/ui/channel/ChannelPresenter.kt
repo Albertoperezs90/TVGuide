@@ -27,10 +27,10 @@ class ChannelPresenter (val channelView: ChannelContract.View) : ChannelContract
     override fun refreshDataList(channelProgamming: ChannelProgamming) {
         channelView.endProgressView()
         if (this.channelPrograms == null){
-            this.channelPrograms = channelPrograms
+            this.channelPrograms = channelProgamming
             channelView.setFragmentNavigation()
         }else {
-            this.channelPrograms = channelPrograms
+            this.channelPrograms = channelProgamming
         }
     }
 }

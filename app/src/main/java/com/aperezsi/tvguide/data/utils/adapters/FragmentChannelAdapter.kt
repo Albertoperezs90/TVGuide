@@ -11,6 +11,7 @@ import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow.TomorrowChannelFra
 import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_1.Tomorrow1ChannelFragment
 import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_2.Tomorrow2ChannelFragment
 import com.aperezsi.tvguide.data.ui.channel.fragment.tomorrow_3.Tomorrow3ChannelFragment
+import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 
 /**
  * Created by alberto on 07/05/2018.
@@ -32,9 +33,11 @@ class FragmentChannelAdapter (val channelPrograms: ChannelProgamming, context: C
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            0 -> context.resources.getString(R.string.fragment_now_title)
-            1 -> context.resources.getString(R.string.fragment_tomorrow_title)
-            2 -> context.resources.getString(R.string.fragment_schedule_title)
+            0 -> context.resources.getString(R.string.today)
+            1 -> context.resources.getString(R.string.tomorrow)
+            2 -> TimeHelper().getDayByEpoch(channelPrograms.tomorrow1!![0].EpochStart!!)
+            3 -> TimeHelper().getDayByEpoch(channelPrograms.tomorrow2!![0].EpochStart!!)
+            4 -> TimeHelper().getDayByEpoch(channelPrograms.tomorrow3!![0].EpochStart!!)
             else -> null
         }
     }

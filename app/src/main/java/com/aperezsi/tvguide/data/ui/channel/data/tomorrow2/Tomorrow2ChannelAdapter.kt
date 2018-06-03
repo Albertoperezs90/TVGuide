@@ -39,7 +39,15 @@ class Tomorrow2ChannelAdapter (val context: Context,
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
+            if (dataItem.Image.isNullOrEmpty()){
+                itemView.ivFragmentChannelRow.setImageResource(R.drawable.no_image)
+            }else {
+                Picasso.get().load(dataItem.Image).into(itemView.ivFragmentChannelRow)
+            }
 
+            itemView.tvFragmentChannelTitleRow.text = dataItem.Title
+            itemView.tvFragmentChannelEpochStartRow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
+            itemView.tvFragmentChannelCategoryRow.text = dataItem.Category
         }
     }
 

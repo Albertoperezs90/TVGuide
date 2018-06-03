@@ -11,5 +11,5 @@
     <string name="drawer_greetings">Hello! </string>
     <string name="drawer_login">Register now!</string>
     <string name="today">Today</string>
-    <string name="Tomorrow">Tomorrow</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>

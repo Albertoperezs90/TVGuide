@@ -37,19 +37,21 @@ class ChannelRepository (private val channelPresenter: ChannelPresenter) : IChan
     @TargetApi(Build.VERSION_CODES.N)
     override fun sortChannelProgramming(channelProgamming: MutableList<ProgramResponse>) {
         val channelSortedProgamming = ChannelProgamming()
+        val todayEpoch = TimeHelper().getEpochDate()
         val tomorrowEpoch = TimeHelper().getEpochDate(1)
         val tomorrow1Epoch = TimeHelper().getEpochDate(2)
         val tomorrow2Epoch = TimeHelper().getEpochDate(3)
         val tomorrow3Epoch = TimeHelper().getEpochDate(4)
 
-        channelSortedProgamming.today = channelProgamming.filter { it.EpochStart!!.toLong() < tomorrowEpoch }
+        channelSortedProgamming.today = channelProgamming.filter { it.EpochStart!!.toLong() > todayEpoch
+                                                                   && it.EpochStart.toLong() < tomorrowEpoch }
         channelProgamming.removeAll { it.EpochStart!!.toLong() < tomorrowEpoch }
 
         channelSortedProgamming.tomorrow = channelProgamming.filter { it.EpochStart!!.toLong() < tomorrow1Epoch }
         channelProgamming.removeAll { it.EpochStart!!.toLong() < tomorrow1Epoch }
 
         channelSortedProgamming.tomorrow1 = channelProgamming.filter { it.EpochStart!!.toLong() < tomorrow2Epoch }
-        channelProgamming.removeAll { it.EpochStart!!.toLong() < tomorrow1Epoch }
+        channelProgamming.removeAll { it.EpochStart!!.toLong() < tomorrow2Epoch }
 
         channelSortedProgamming.tomorrow2 = channelProgamming.filter { it.EpochStart!!.toLong() < tomorrow3Epoch }
         channelProgamming.removeAll { it.EpochStart!!.toLong() < tomorrow3Epoch }

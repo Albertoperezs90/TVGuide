@@ -19,7 +19,6 @@ import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
-import com.aperezsi.tvguide.R.id.textView
 import android.widget.Toast
 import com.aperezsi.tvguide.R.id.search_src_text
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
