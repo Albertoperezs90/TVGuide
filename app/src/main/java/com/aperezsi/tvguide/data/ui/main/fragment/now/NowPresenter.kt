@@ -39,6 +39,7 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     override fun updatePrograms(programs: List<ProgramResponse>?) {
         nowPrograms = programs
+        nowPrograms = filterNowPrograms()
         nowView.notifyDataAdapterChanged()
         nowView.setContainerRefresh(false)
     }
