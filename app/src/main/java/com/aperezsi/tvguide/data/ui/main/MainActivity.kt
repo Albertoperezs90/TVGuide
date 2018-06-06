@@ -24,10 +24,9 @@ import com.aperezsi.tvguide.R.id.search_src_text
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.R.id.drawerLayout
 import android.os.Bundle
-
-
-
-
+import com.aperezsi.tvguide.data.service.AuthValidator
+import com.aperezsi.tvguide.data.service.FirebaseService
+import kotlinx.android.synthetic.main.nav_drawer_header.*
 
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -52,7 +51,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchView.setQuery("", false)
-                menuItem?.collapseActionView()
+                menuItem.collapseActionView()
                 return false
             }
 
@@ -61,6 +60,11 @@ class MainActivity : BaseActivity(), MainContract.View {
                 return true
             }
         })
+
+        drawer_header_iv.setOnClickListener {
+            FirebaseService.pushUser()
+            AuthValidator.getToken()
+        }
     }
 
 
