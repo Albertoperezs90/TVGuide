@@ -24,3 +24,5 @@ data class ChannelProgamming(var today: List<ProgramResponse>? = null,
                              var tomorrow1: List<ProgramResponse>? = null,
                              var tomorrow2: List<ProgramResponse>? = null,
                              var tomorrow3: List<ProgramResponse>? = null)
+
+data class ScheduleProgramming(var scheduleProgramming: MutableList<ProgramResponse>)

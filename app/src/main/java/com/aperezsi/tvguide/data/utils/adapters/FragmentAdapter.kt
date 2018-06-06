@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.aperezsi.tvguide.R
-import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.ScheduleFragment
@@ -22,7 +21,7 @@ class FragmentAdapter (val nowPrograms: List<ProgramResponse> ,context: Context,
         return when (position) {
             0 -> NowFragment(nowPrograms)
             1 -> TomorrowFragment()
-            2 -> ScheduleFragment()
+            2 -> ScheduleFragment(nowPrograms)
             else -> null
         }
     }
