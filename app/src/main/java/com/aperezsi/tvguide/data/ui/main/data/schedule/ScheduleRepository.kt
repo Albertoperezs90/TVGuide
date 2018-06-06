@@ -2,8 +2,7 @@ package com.aperezsi.tvguide.data.ui.main.data.schedule
 
 import android.util.Log
 import com.aperezsi.tvguide.data.data.ProgramResponse
-import com.aperezsi.tvguide.data.data.ScheduleProgramming
-import com.aperezsi.tvguide.data.service.ProgramAPI
+import com.aperezsi.tvguide.data.service.interfaces.ProgramAPI
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.SchedulePresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

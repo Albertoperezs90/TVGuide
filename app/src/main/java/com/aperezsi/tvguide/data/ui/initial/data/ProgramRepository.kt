@@ -1,10 +1,8 @@
 package com.aperezsi.tvguide.data.ui.main.data
 
 import android.util.Log
-import com.aperezsi.tvguide.data.data.APIResponse
-import com.aperezsi.tvguide.data.service.ProgramAPI
+import com.aperezsi.tvguide.data.service.interfaces.ProgramAPI
 import com.aperezsi.tvguide.data.ui.base.BaseRepository
-import com.aperezsi.tvguide.data.ui.initial.InitialPresenter
 import com.aperezsi.tvguide.data.ui.initial.fragment.InitialFragmentPresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

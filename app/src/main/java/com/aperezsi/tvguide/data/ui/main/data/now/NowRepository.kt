@@ -1,7 +1,7 @@
 package com.aperezsi.tvguide.data.ui.main.data.now
 
 import android.util.Log
-import com.aperezsi.tvguide.data.service.ProgramAPI
+import com.aperezsi.tvguide.data.service.interfaces.ProgramAPI
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowPresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
