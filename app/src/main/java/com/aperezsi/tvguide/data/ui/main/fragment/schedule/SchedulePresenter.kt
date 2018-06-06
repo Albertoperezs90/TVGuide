@@ -1,17 +1,31 @@
 package com.aperezsi.tvguide.data.ui.main.fragment.schedule
 
+import android.util.Log
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.ScheduleProgramming
 import com.aperezsi.tvguide.data.ui.main.data.schedule.ScheduleAdapter
+import com.aperezsi.tvguide.data.ui.main.data.schedule.ScheduleRepository
 
 class SchedulePresenter (val scheduleView: ScheduleContract.View): ScheduleContract.Presenter {
 
+    private val repository: ScheduleRepository = ScheduleRepository(this)
+    private val scheduleProgramming = mutableListOf<ScheduleProgramming>()
+
+    override fun initBuilders() {
+        scheduleView.buildAdapter()
+    }
+
     override fun buildAdapter(layout: Int): ScheduleAdapter {
-        val programs = scheduleView.getPrograms()
-        val scheduleProgramList = mutableListOf<ScheduleProgramming>()
-        //TODO filtrar programs por cadena
-        //TODO por cada list de cadenas filtradas, introducir al scheduleProgramList.AddAll(lista programs)
-        val adapter = ScheduleAdapter(scheduleView.getFragmentContext(), layout, scheduleProgramList)
+        val adapter = ScheduleAdapter(scheduleView.getFragmentContext(), layout, scheduleProgramming)
         return adapter
+    }
+
+    override fun loadData() {
+        repository.mapProgramResponseToScheduleProgamming(scheduleView.getPrograms())
+    }
+
+    override fun addProgramListToScheduleProgramming(programs: List<ProgramResponse>) {
+        scheduleProgramming.add(ScheduleProgramming(programs.toMutableList()))
     }
 
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.ScheduleProgramming
@@ -15,6 +16,8 @@ import com.aperezsi.tvguide.data.utils.Constants
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_schedule_row.view.*
+import kotlinx.android.synthetic.main.fragment_schedule_row_single.view.*
 import kotlinx.android.synthetic.main.fragment_tomorrow_row.view.*
 
 class ScheduleAdapter (val context: Context,
@@ -39,9 +42,23 @@ class ScheduleAdapter (val context: Context,
     }
 
 
-    inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
+    inner class ViewHolder(val viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ScheduleProgramming){
+            val layout = itemView.dealsView
+            itemView.dealsView.removeAllViews()
+            dataItem.scheduleProgramming.forEach {
+                val inflater = LayoutInflater.from(context)
+                val view : View = inflater.inflate(R.layout.fragment_schedule_row_single, layout, false)
 
+                if (!it.Image.isNullOrEmpty()){
+                    Picasso.get().load(it.Image).into(view.ivProgramSchedule)
+                }else {
+                    view.ivProgramSchedule.setImageResource(R.drawable.no_image)
+                }
+
+                view.tvTitleProgramSchedule.text = it.Title
+                layout.addView(view)
+            }
         }
     }
 

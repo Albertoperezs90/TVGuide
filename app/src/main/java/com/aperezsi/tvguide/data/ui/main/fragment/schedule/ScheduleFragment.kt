@@ -3,10 +3,12 @@ package com.aperezsi.tvguide.data.ui.main.fragment.schedule
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.aperezsi.tvguide.data.ui.main.data.schedule.ScheduleAdapter
+import kotlinx.android.synthetic.main.fragment_schedule.*
 
 @SuppressLint("ValidFragment")
 /**
@@ -22,8 +24,14 @@ class ScheduleFragment(val nowPrograms: List<ProgramResponse>) : BaseFragment(),
     override fun getFragmentActivity(): FragmentActivity = activity!!
 
     override fun onStart() {
-        this.adapter = schedulePresenter.buildAdapter(R.layout.fragment_schedule_row)
+        schedulePresenter.loadData()
         super.onStart()
+    }
+
+    override fun buildAdapter() {
+        this.adapter = schedulePresenter.buildAdapter(R.layout.fragment_schedule_row)
+        rvSchedule.layoutManager = LinearLayoutManager(context)
+        rvSchedule.adapter = this.adapter
     }
 
     override fun refreshAdapter() {

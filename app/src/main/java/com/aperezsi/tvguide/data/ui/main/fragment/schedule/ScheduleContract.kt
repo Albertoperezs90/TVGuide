@@ -12,11 +12,15 @@ interface ScheduleContract {
     interface View : BaseView<Presenter> {
         fun getFragmentContext() : Context
         fun getFragmentActivity() : FragmentActivity
+        fun buildAdapter()
         fun refreshAdapter()
         fun getPrograms() : List<ProgramResponse>
     }
 
     interface Presenter : BasePresenter {
+        fun initBuilders()
+        fun loadData()
         fun buildAdapter(layout: Int) : ScheduleAdapter
+        fun addProgramListToScheduleProgramming(programs: List<ProgramResponse>)
     }
 }
