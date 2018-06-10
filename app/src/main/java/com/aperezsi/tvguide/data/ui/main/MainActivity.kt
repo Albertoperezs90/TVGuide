@@ -1,7 +1,9 @@
 package com.aperezsi.tvguide.data.ui.main
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.MenuItemCompat
@@ -24,8 +26,10 @@ import com.aperezsi.tvguide.R.id.search_src_text
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.R.id.drawerLayout
 import android.os.Bundle
+import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.AuthValidator
 import com.aperezsi.tvguide.data.service.FirebaseService
+import com.aperezsi.tvguide.data.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.nav_drawer_header.*
 
 
@@ -34,16 +38,22 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val mainPresenter: MainPresenter = MainPresenter(this)
     private lateinit var searchView: SearchView
     private lateinit var menuItem: MenuItem
+    private val firebaseService = FirebaseService(mainPresenter)
+    private val authValidator = AuthValidator(mainPresenter)
+    private var user: User? = null
+    private val LOGIN_REQUEST = 1
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getContext(): Context = this
     override fun setFragmentNavigation() = mainPresenter.setNavigation(supportFragmentManager, tabs, viewpager)
+    override fun getActivity(): MainActivity = this
 
     override fun onStart() {
         super.onStart()
         setSupportActionBar(toolbar)
         navigation_view.setNavigationItemSelectedListener(this)
         attachDrawerLayout()
+        mainPresenter.checkIfUserIsLogged()
     }
 
 
@@ -62,8 +72,12 @@ class MainActivity : BaseActivity(), MainContract.View {
         })
 
         drawer_header_iv.setOnClickListener {
-            FirebaseService.pushUser()
-            AuthValidator.getToken()
+            if (user != null){
+
+            }else {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivityForResult(intent, LOGIN_REQUEST)
+            }
         }
     }
 
@@ -127,6 +141,29 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun refreshAdapter() {
 
+    }
+
+    override fun refreshUser() {
+        val user = firebaseService.getCurrentUser()
+        if (user != null){
+            drawer_header_tv_name.text = user.displayName
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode){
+            Activity.RESULT_CANCELED -> "blablabla"
+            LOGIN_REQUEST -> updateUI(data)
+            else -> "JEJEJEJEJ"
+        }
+    }
+
+    override fun updateUI(data: Intent) {
+        user = data.getSerializableExtra("user") as User
+        firebaseService.createUser(user!!)
+        drawer_header_tv_name.text = user!!.nickname
+        toast("Bienvenido ${user!!.nickname}")
     }
 
 

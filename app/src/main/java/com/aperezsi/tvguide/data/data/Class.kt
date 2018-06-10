@@ -30,7 +30,6 @@ data class ScheduleProgramming(var scheduleProgramming: MutableList<ProgramRespo
 
 /* REGION USERS */
 
-data class User(var device: Device, var nickname: String = "", var password: String)
-data class Device(var id: String = "", var model: String)
+data class User(var id: String = "", var nickname: String = "", var email: String = "", var password: String = "", var avatar: String = "") : Serializable
 
 /* ENDREGION USERS */

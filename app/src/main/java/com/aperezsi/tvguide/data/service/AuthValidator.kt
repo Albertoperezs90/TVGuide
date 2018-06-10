@@ -2,10 +2,11 @@ package com.aperezsi.tvguide.data.service
 
 import android.util.Log
 import com.aperezsi.tvguide.data.service.interfaces.ProgramAPI
+import com.aperezsi.tvguide.data.ui.main.MainPresenter
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-object AuthValidator {
+class AuthValidator (presenter: MainPresenter) {
 
     private val programApi by lazy {
         ProgramAPI.create()
