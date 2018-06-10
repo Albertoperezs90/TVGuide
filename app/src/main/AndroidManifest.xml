@@ -21,6 +21,7 @@
         <activity android:name=".data.ui.main.MainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".data.ui.detail.DetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".data.ui.channel.ChannelActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".data.ui.login.LoginActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

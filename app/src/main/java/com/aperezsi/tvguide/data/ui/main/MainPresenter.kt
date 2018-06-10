@@ -5,8 +5,11 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.data.User
+import com.aperezsi.tvguide.data.service.FirebaseService
 import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
+import com.google.android.gms.auth.api.signin.internal.Storage
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
@@ -29,5 +32,26 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         nowPrograms = nowPrograms!!.filter { it.Title!!.startsWith(newQuery) }.toMutableList()
         mainView.refreshAdapter()
         return nowPrograms!!.toList()
+    }
+
+    override fun getActivity(): MainActivity {
+        return mainView.getActivity()
+    }
+
+    override fun refreshUser() {
+        mainView.refreshUser()
+    }
+
+    override fun saveUserToPreferences(key: String) {
+        com.aperezsi.tvguide.data.service.Storage(mainView.getActivity()).saveUserKey(key)
+    }
+
+    override fun checkIfUserIsLogged() {
+        val key = com.aperezsi.tvguide.data.service.Storage(mainView.getActivity()).isUserLogged()
+        if (!key.isNullOrEmpty()){
+            val user = FirebaseService(this).getUserFromDb(key)
+            FirebaseService(this).logginUser(user)
+            mainView.refreshUser()
+        }
     }
 }
