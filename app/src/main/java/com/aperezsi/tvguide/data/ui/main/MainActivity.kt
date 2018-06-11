@@ -167,7 +167,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         builder.setView(loginLayout)
         builder.setPositiveButton("Acepar"){
             dialogInterface, i ->
-            Toast.makeText(this, "Que hago con el usuario: ${loginLayout.user.text}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Que hago con el usuario: ${loginLayout.email.text}", Toast.LENGTH_LONG).show()
         }
         builder.setNegativeButton("Cancelar"
         ) { dialog, whichButton ->
