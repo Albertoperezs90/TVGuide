@@ -23,7 +23,6 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
     override fun onStart() {
         super.onStart()
         startVideoView()
-        initGoogleSignIn()
     }
 
     override fun startVideoView() {
@@ -37,7 +36,7 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
         }
     }
 
-    override fun initGoogleSignIn() {
+   /* override fun initGoogleSignIn() {
         val button: TextView = share_button.getChildAt(0) as TextView
         button.text = getString(R.string.google_signin)
 
@@ -51,5 +50,5 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
             val intent = googleClient.signInIntent
             startActivityForResult(intent, 1)
         }
-    }
+    }*/
 }

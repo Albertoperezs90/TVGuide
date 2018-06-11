@@ -12,4 +12,6 @@
     <string name="drawer_login">Registrate ahora!</string>
     <string name="today">Hoy</string>
     <string name="tomorrow">Mañana</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

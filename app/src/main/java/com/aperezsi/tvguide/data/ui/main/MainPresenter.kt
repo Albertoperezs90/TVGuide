@@ -18,8 +18,10 @@ import org.jetbrains.anko.customView
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
+
     var nowPrograms: MutableList<ProgramResponse>? = null
     var originalProgramList: List<ProgramResponse>? = null
+    val firebaseService = FirebaseService(this)
 
     override fun setProgramsList(nowPrograms: APIResponse) {
         this.nowPrograms = nowPrograms.response.toMutableList()
@@ -43,10 +45,6 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         return mainView.getActivity()
     }
 
-    override fun refreshUser() {
-        mainView.refreshUser()
-    }
-
     override fun saveUserToPreferences(key: String) {
         com.aperezsi.tvguide.data.service.Storage(mainView.getActivity()).saveUserKey(key)
     }
@@ -54,9 +52,27 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     override fun checkIfUserIsLogged() {
         val key = com.aperezsi.tvguide.data.service.Storage(mainView.getActivity()).isUserLogged()
         if (!key.isNullOrEmpty()){
-            val user = FirebaseService(this).getUserFromDb(key)
-            FirebaseService(this).logginUser(user)
-            mainView.refreshUser()
+            firebaseService.getUserFromDb(key)
         }
+    }
+
+    override fun refreshUser() {
+        mainView.refreshUser(firebaseService.getCurrentUser())
+    }
+
+    override fun logginUser(user: User) {
+        firebaseService.logginUser(user)
+    }
+
+    override fun createUser(user: User) {
+        firebaseService.createUser(user)
+    }
+
+    override fun showToast(message: String) {
+        mainView.showToast(message)
+    }
+
+    override fun alertDismiss() {
+        mainView.alertDismiss()
     }
 }

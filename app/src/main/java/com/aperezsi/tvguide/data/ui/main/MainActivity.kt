@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.SearchView
+import android.util.Log
+import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -21,9 +23,11 @@ import org.jetbrains.anko.toast
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.AuthValidator
 import com.aperezsi.tvguide.data.service.FirebaseService
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.dialog_login.view.*
 import kotlinx.android.synthetic.main.nav_drawer_header.*
 import org.jetbrains.anko.alert
+import kotlin.math.log
 
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -35,6 +39,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val authValidator = AuthValidator(mainPresenter)
     private var user: User? = null
     private val LOGIN_REQUEST = 1
+    private lateinit var alertDialog: AlertDialog
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getContext(): Context = this
@@ -135,10 +140,10 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     }
 
-    override fun refreshUser() {
-        val user = firebaseService.getCurrentUser()
+    override fun refreshUser(user: FirebaseUser?) {
         if (user != null){
-            drawer_header_tv_name.text = user.displayName
+            val name = user.email!!.substring(0, user.email!!.indexOf('@'))
+            drawer_header_tv_name.text = name
         }
     }
 
@@ -160,21 +165,40 @@ class MainActivity : BaseActivity(), MainContract.View {
 
 
     override fun buildDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("login")
         val inflater = layoutInflater
         val loginLayout = inflater.inflate(R.layout.dialog_login, null)
-        builder.setView(loginLayout)
-        builder.setPositiveButton("Acepar"){
-            dialogInterface, i ->
-            Toast.makeText(this, "Que hago con el usuario: ${loginLayout.email.text}", Toast.LENGTH_LONG).show()
+        alertDialog = AlertDialog.Builder(this)
+            .setView(loginLayout)
+            .setPositiveButton(R.string.accept, null)
+            .setNegativeButton(R.string.cancel,null)
+            .create()
+
+        alertDialog.setOnShowListener { dialogInterface ->
+            val button = (dialogInterface as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
+            button.setOnClickListener { view ->
+                val email = loginLayout.email.text.toString()
+                val password = loginLayout.pass.text.toString()
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    if (!password.isNullOrEmpty()){
+                        val user = User("", email.substring(0, email.indexOf('@')),email, password)
+                        mainPresenter.createUser(user)
+                    }else {
+                        toast("El campo contraseña es obligatorio")
+                    }
+                }else {
+                    toast("Debe escribir un e-mail valido")
+                }
+            }
         }
-        builder.setNegativeButton("Cancelar"
-        ) { dialog, whichButton ->
-            // naa
-        }
-        builder.show()
+        alertDialog.show()
     }
 
 
+    override fun alertDismiss() {
+        alertDialog.dismiss()
+    }
+
+    override fun showToast(message: String) {
+        toast(message)
+    }
 }
