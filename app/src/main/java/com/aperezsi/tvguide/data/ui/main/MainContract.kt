@@ -1,13 +1,15 @@
 package com.aperezsi.tvguide.data.ui.main
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.design.widget.NavigationView
+import android.view.ViewManager
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
-import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.ui.base.BasePresenter
 import com.aperezsi.tvguide.data.ui.base.BaseView
+import org.jetbrains.anko.AlertBuilder
 
 interface MainContract {
 
@@ -21,6 +23,7 @@ interface MainContract {
         fun refreshAdapter()
         fun refreshUser()
         fun updateUI(data: Intent)
+        fun buildDialog()
     }
 
     interface Presenter : BasePresenter {

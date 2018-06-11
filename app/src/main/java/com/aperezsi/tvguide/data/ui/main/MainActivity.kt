@@ -1,36 +1,29 @@
 package com.aperezsi.tvguide.data.ui.main
 
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
-import android.widget.Toast
-import com.aperezsi.tvguide.R.id.search_src_text
-import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
-import com.aperezsi.tvguide.R.id.drawerLayout
-import android.os.Bundle
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.AuthValidator
 import com.aperezsi.tvguide.data.service.FirebaseService
-import com.aperezsi.tvguide.data.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.dialog_login.view.*
 import kotlinx.android.synthetic.main.nav_drawer_header.*
+import org.jetbrains.anko.alert
 
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -75,8 +68,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             if (user != null){
 
             }else {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivityForResult(intent, LOGIN_REQUEST)
+                buildDialog()
             }
         }
     }
@@ -164,6 +156,24 @@ class MainActivity : BaseActivity(), MainContract.View {
         firebaseService.createUser(user!!)
         drawer_header_tv_name.text = user!!.nickname
         toast("Bienvenido ${user!!.nickname}")
+    }
+
+
+    override fun buildDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("login")
+        val inflater = layoutInflater
+        val loginLayout = inflater.inflate(R.layout.dialog_login, null)
+        builder.setView(loginLayout)
+        builder.setPositiveButton("Acepar"){
+            dialogInterface, i ->
+            Toast.makeText(this, "Que hago con el usuario: ${loginLayout.user.text}", Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("Cancelar"
+        ) { dialog, whichButton ->
+            // naa
+        }
+        builder.show()
     }
 
 

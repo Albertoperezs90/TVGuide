@@ -1,8 +1,11 @@
 package com.aperezsi.tvguide.data.ui.main
 
+import android.content.Context
+import android.content.DialogInterface
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
+import android.view.ViewManager
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.User
@@ -10,6 +13,8 @@ import com.aperezsi.tvguide.data.service.FirebaseService
 import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 import com.google.android.gms.auth.api.signin.internal.Storage
+import org.jetbrains.anko.AlertBuilder
+import org.jetbrains.anko.customView
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 

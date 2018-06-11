@@ -75,7 +75,7 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
     override fun onPrepareOptionsMenu(menu: Menu?) {
         if (!detailFragmentPresenter.isAppbarExpanded() || detailFragmentPresenter.getMenu().size() != 1) {
             detailFragmentPresenter.getMenu().add("Chat")
-                    .setIcon(R.drawable.ic_action_name)
+                    .setIcon(R.drawable.ic_chat)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         }
 
