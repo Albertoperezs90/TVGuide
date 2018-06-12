@@ -11,12 +11,14 @@ import java.sql.Time
  */
 class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
-    var nowPrograms: List<ProgramResponse>? = null
+    var nowPrograms: MutableList<ProgramResponse>? = null
+    var originalNowPrograms: List<ProgramResponse>? = null
     val nowRepository: NowRepository = NowRepository(this)
 
     override fun buildAdapter(layout: Int) {
-        nowPrograms = nowView.getNowPrograms()
-        nowPrograms = filterNowPrograms()
+        nowPrograms = nowView.getNowPrograms().toMutableList()!!
+        originalNowPrograms = nowPrograms
+        nowPrograms = filterNowPrograms()!!.toMutableList()
         val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
@@ -38,8 +40,9 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
 
     override fun updatePrograms(programs: List<ProgramResponse>?) {
-        nowPrograms = programs
-        nowPrograms = filterNowPrograms()
+        nowPrograms!!.clear()
+        nowPrograms!!.addAll(programs!!)
+        nowPrograms!!.addAll(filterNowPrograms()!!)
         nowView.notifyDataAdapterChanged()
         nowView.setContainerRefresh(false)
     }

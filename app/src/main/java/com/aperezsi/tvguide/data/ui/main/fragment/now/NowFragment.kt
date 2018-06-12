@@ -43,11 +43,20 @@ class NowFragment(private val nowPrograms: List<ProgramResponse>) : BaseFragment
         adapter.notifyDataSetChanged()
     }
 
+    override fun updatePrograms(filteredPrograms: List<ProgramResponse>) {
+        nowPresenter.updatePrograms(filteredPrograms)
+    }
+
+
     override fun getNowPrograms(): List<ProgramResponse> {
         return nowPrograms
     }
 
     override fun setContainerRefresh(flag: Boolean) {
        swipe_container.isRefreshing = flag
+    }
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
+        nowPresenter.updatePrograms(programs)
     }
 }

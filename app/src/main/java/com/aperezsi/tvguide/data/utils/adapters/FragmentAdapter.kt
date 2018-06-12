@@ -4,11 +4,15 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.view.ViewGroup
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.ScheduleFragment
 import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
+import android.util.SparseArray
+
+
 
 /**
  * Created by alberto on 07/05/2018.
@@ -16,6 +20,7 @@ import com.aperezsi.tvguide.data.ui.main.fragment.tomorrow.TomorrowFragment
 class FragmentAdapter (val nowPrograms: List<ProgramResponse> ,context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var context: Context = context
+    var registeredFragments = SparseArray<Fragment>()
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
@@ -34,6 +39,19 @@ class FragmentAdapter (val nowPrograms: List<ProgramResponse> ,context: Context,
             else -> null
         }
     }
+
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val fragment = super.instantiateItem(container, position) as Fragment
+        registeredFragments.put(position, fragment)
+        return fragment
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        registeredFragments.remove(position)
+        super.destroyItem(container, position, `object`)
+    }
+
+
 
     override fun getCount(): Int  = 3
 }

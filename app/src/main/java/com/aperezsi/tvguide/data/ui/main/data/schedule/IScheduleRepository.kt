@@ -5,5 +5,5 @@ import com.aperezsi.tvguide.data.data.ScheduleProgramming
 
 interface IScheduleRepository {
 
-    fun mapProgramResponseToScheduleProgamming(programs: List<ProgramResponse>)
+    fun mapProgramResponseToScheduleProgamming()
 }

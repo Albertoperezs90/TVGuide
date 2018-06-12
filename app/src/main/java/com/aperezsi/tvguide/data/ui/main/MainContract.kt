@@ -23,7 +23,6 @@ interface MainContract {
         fun attachDrawerLayout()
         fun customizeSearchView()
         fun initListeners()
-        fun refreshAdapter()
         fun refreshUser(user: FirebaseUser?)
         fun updateUI(data: Intent)
         fun buildDialog()
@@ -42,5 +41,8 @@ interface MainContract {
         fun alertDismiss()
         fun refreshUser()
         fun logginUser(user: User)
+        fun loadFavourites()
+        fun isFirsTime() : Boolean
+        fun filterPrograms(filter: String)
     }
 }

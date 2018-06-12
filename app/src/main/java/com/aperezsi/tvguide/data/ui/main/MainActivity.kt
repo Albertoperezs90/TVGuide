@@ -35,10 +35,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val mainPresenter: MainPresenter = MainPresenter(this)
     private lateinit var searchView: SearchView
     private lateinit var menuItem: MenuItem
-    private val firebaseService = FirebaseService(mainPresenter)
-    private val authValidator = AuthValidator(mainPresenter)
     private var user: User? = null
-    private val LOGIN_REQUEST = 1
     private lateinit var alertDialog: AlertDialog
 
     override fun getContentResource(): Int = R.layout.activity_main
@@ -52,8 +49,21 @@ class MainActivity : BaseActivity(), MainContract.View {
         navigation_view.setNavigationItemSelectedListener(this)
         attachDrawerLayout()
         mainPresenter.checkIfUserIsLogged()
+        if (mainPresenter.isFirsTime()){
+            mainPresenter.loadFavourites()
+        }
     }
 
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_view, menu)
+        menuItem = menu!!.findItem(R.id.action_search)
+        searchView = menuItem.actionView as SearchView
+        customizeSearchView()
+        initListeners()
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun initListeners() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -69,25 +79,14 @@ class MainActivity : BaseActivity(), MainContract.View {
             }
         })
 
-        drawer_header_iv.setOnClickListener {
+        drawer_header.setOnClickListener {
             if (user != null){
-
+                //TODO VENTANA MODIFICAR FOTOS, ETC...
             }else {
                 buildDialog()
             }
         }
     }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search_view, menu)
-        menuItem = menu!!.findItem(R.id.action_search)
-        searchView = menuItem.actionView as SearchView
-        customizeSearchView()
-        initListeners()
-        return super.onCreateOptionsMenu(menu)
-    }
-
 
     override fun customizeSearchView() {
         val autoComplete = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as SearchView.SearchAutoComplete
@@ -122,13 +121,18 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.nav_item_one -> toast("clicked one")
-            R.id.nav_item_two -> toast("clicked two")
-            R.id.nav_item_three -> toast("clicked three")
-            R.id.nav_item_four -> toast("clicked four")
-            R.id.nav_item_five -> toast("clicked five")
-            R.id.nav_item_six -> toast("clicked six")
-            R.id.nav_item_seven -> toast("clicked seven")
+            R.id.all_programs -> mainPresenter.filterPrograms("")
+            R.id.favourites_programs -> mainPresenter.filterPrograms("fav")
+            R.id.movies_programs -> mainPresenter.filterPrograms("movie")
+            R.id.series_programs -> mainPresenter.filterPrograms("serie")
+            R.id.news_programs -> mainPresenter.filterPrograms("newspaper")
+            R.id.graduate_programs -> mainPresenter.filterPrograms("graduate")
+            R.id.sport_programs -> mainPresenter.filterPrograms("deportes")
+            R.id.documental_programs -> mainPresenter.filterPrograms("documental")
+            R.id.footbal_programs -> mainPresenter.filterPrograms("futbol")
+            R.id.music_programs -> mainPresenter.filterPrograms("musica")
+            R.id.joke_programs -> mainPresenter.filterPrograms("humor")
+            R.id.cook_programs -> mainPresenter.filterPrograms("cook")
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -136,29 +140,19 @@ class MainActivity : BaseActivity(), MainContract.View {
         return true
     }
 
-    override fun refreshAdapter() {
-
-    }
 
     override fun refreshUser(user: FirebaseUser?) {
         if (user != null){
             val name = user.email!!.substring(0, user.email!!.indexOf('@'))
+            this.user = User(user.uid, name, user.email!!, "", "")
             drawer_header_tv_name.text = name
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode){
-            Activity.RESULT_CANCELED -> "blablabla"
-            LOGIN_REQUEST -> updateUI(data)
-            else -> "JEJEJEJEJ"
-        }
-    }
 
     override fun updateUI(data: Intent) {
         user = data.getSerializableExtra("user") as User
-        firebaseService.createUser(user!!)
+        mainPresenter.createUser(user!!)
         drawer_header_tv_name.text = user!!.nickname
         toast("Bienvenido ${user!!.nickname}")
     }

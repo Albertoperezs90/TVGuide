@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-        <item android:id="@+id/nav_item_one"
-            android:icon="@drawable/ic_chat"
-            android:title="Item 1" />
-        <item android:id="@+id/nav_item_two"
-            android:icon="@drawable/ic_chat"
-            android:title="Item 2" />
-        <item android:id="@+id/nav_item_three"
-            android:icon="@drawable/ic_chat"
-            android:title="Item 3" />
+        <item android:id="@+id/all_programs"
+            android:icon="@drawable/baseline_all_inclusive_black_18dp"
+            android:title="Todos" />
+        <item android:id="@+id/favourites_programs"
+            android:icon="@drawable/baseline_favorite_black_18dp"
+            android:title="Favoritos" />
     </group>
 
-    <group android:id="@+id/group_menu">
-        <item android:id="@+id/nav_item_four"
-            android:title="Item 4" />
-        <item android:id="@+id/nav_item_five"
-            android:title="Item 5" />
+    <group>
+        <item android:id="@+id/movies_programs"
+            android:icon="@drawable/baseline_movie_black_18dp"
+            android:title="Peliculas" />
+        <item android:id="@+id/series_programs"
+            android:icon="@drawable/baseline_new_releases_black_18dp"
+            android:title="Series" />
     </group>
 
-    <item android:title="Title 1">
-        <menu>
-            <item android:id="@+id/nav_item_six"
-                android:icon="@drawable/ic_chat"
-                android:title="Item 6" />
-            <item android:id="@+id/nav_item_seven"
-                android:icon="@drawable/ic_chat"
-                android:title="Item 7" />
-        </menu>
-    </item>
+    <group>
+        <item android:id="@+id/news_programs"
+            android:icon="@drawable/baseline_insert_comment_black_18dp"
+            android:title="Noticias" />
+        <item android:id="@+id/graduate_programs"
+            android:icon="@drawable/baseline_extension_black_18dp"
+            android:title="Cultura" />
+        <item android:id="@+id/documental_programs"
+            android:icon="@drawable/baseline_pets_black_18dp"
+            android:title="Documental" />
+        <item android:id="@+id/sport_programs"
+            android:icon="@drawable/baseline_rowing_black_18dp"
+            android:title="Deportes" />
+        <item android:id="@+id/footbal_programs"
+            android:icon="@drawable/baseline_blur_circular_black_18dp"
+            android:title="Futbol" />
+    </group>
+    <group>
+        <item android:id="@+id/music_programs"
+            android:icon="@drawable/baseline_music_note_black_18dp"
+            android:title="Musica" />
+        <item android:id="@+id/joke_programs"
+            android:icon="@drawable/baseline_sentiment_satisfied_alt_black_18dp"
+            android:title="Humor" />
+        <item android:id="@+id/cook_programs"
+            android:icon="@drawable/baseline_view_comfy_black_18dp"
+            android:title="Cocina" />
+    </group>
 </menu>

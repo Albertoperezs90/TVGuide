@@ -97,4 +97,8 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
             }
         }
     }
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
+        //this.adapter.notifyDataSetChanged()
+    }
 }
