@@ -37,6 +37,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var menuItem: MenuItem
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
+    private val PICK_IMAGE = 1
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getContext(): Context = this
@@ -84,6 +85,12 @@ class MainActivity : BaseActivity(), MainContract.View {
                 //TODO VENTANA MODIFICAR FOTOS, ETC...
             }else {
                 buildDialog()
+            }
+        }
+
+        drawer_header_iv.setOnClickListener {
+            if (user != null){
+                pickImage()
             }
         }
     }
@@ -195,4 +202,20 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun showToast(message: String) {
         toast(message)
     }
+
+    override fun pickImage() {
+        val intent = Intent()
+        intent.setType("image/*")
+        intent.setAction(Intent.ACTION_GET_CONTENT)
+        startActivityForResult(Intent.createChooser(intent, "Selecciona foto"), PICK_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_IMAGE){
+            if (data != null){
+                val inputStream = this.getContentResolver().openInputStream(data.data)
+            }
+        }
+    }
+
 }

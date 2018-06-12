@@ -28,6 +28,7 @@ interface MainContract {
         fun buildDialog()
         fun alertDismiss()
         fun showToast(message: String)
+        fun pickImage()
     }
 
     interface Presenter : BasePresenter {
