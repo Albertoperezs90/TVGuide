@@ -2,6 +2,7 @@ package com.aperezsi.tvguide.data.ui.main.data.schedule
 
 import android.util.Log
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.service.Storage
 import com.aperezsi.tvguide.data.service.interfaces.ProgramAPI
 import com.aperezsi.tvguide.data.ui.main.fragment.schedule.SchedulePresenter
 import rx.android.schedulers.AndroidSchedulers
@@ -15,17 +16,17 @@ class ScheduleRepository (val schedulePresenter: SchedulePresenter) : IScheduleR
         ProgramAPI.create()
     }
 
-    override fun mapProgramResponseToScheduleProgamming(programs: List<ProgramResponse>) {
-        val idChannelList = programs.distinctBy { it.IdChannel }
-        lastChannel = idChannelList.last().IdChannel!!.toInt()
-        idChannelList.forEach { programResponse ->
-            Log.d("ENTRANDO BUCLE", programResponse.IdChannel)
-            programApi.getChannelProgamming(programResponse.IdChannel!!)
+    override fun mapProgramResponseToScheduleProgamming() {
+        val idChannelList = Storage(schedulePresenter.scheduleView.getFragmentActivity()).getIdChannels()
+        lastChannel = idChannelList.last().toInt()
+
+        idChannelList.forEach { id ->
+            programApi.getChannelProgamming(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        schedulePresenter.addProgramListToScheduleProgramming(it.response)
-                        if (lastChannel == it.response[0].IdChannel!!.toInt()){
+                    .subscribe({ apiResponse ->
+                        schedulePresenter.addProgramListToScheduleProgramming(apiResponse.response)
+                        if (lastChannel == id.toInt()){
                             schedulePresenter.initBuilders()
                         }
                     }, {

@@ -11,7 +11,6 @@ interface LoginFragmentContract {
 
     interface View : BaseView<Presenter>{
         fun startVideoView()
-        fun initGoogleSignIn()
     }
 
     interface Presenter : BasePresenter

@@ -18,4 +18,35 @@ class Storage (activity: Activity) : IStorage {
         val key = sharedPreferences.getString("user" , "")
         return key
     }
+
+    override fun saveChannel(channel: String) {
+        var idChannels = sharedPreferences.getString("channel", "")
+        if (idChannels.isEmpty()){
+            idChannels=channel
+        }else {
+            idChannels+=",$channel"
+        }
+        editor.putString("channel", idChannels)
+        editor.commit()
+    }
+
+    override fun getIdChannels(): List<String> {
+        return sharedPreferences.getString("channel" ,"").split(",")
+    }
+
+    override fun setFirstTimeLoaded() {
+        editor.putString("first", "n")
+        editor.commit()
+    }
+
+    override fun isFirstTime(): Boolean {
+        val first = sharedPreferences.getString("first", "")
+        if (first.isEmpty()){
+            setFirstTimeLoaded()
+            return true
+        }else {
+            return false
+        }
+    }
+
 }

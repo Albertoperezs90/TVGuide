@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_channel.*
  * Created by alberto on 31/05/2018.
  */
 class Tomorrow2ChannelFragment(val tomorrow2: List<ProgramResponse>?) : BaseFragment(), Tomorrow2ChannelContract.View {
+    override fun refreshAdapter() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var adapter: Tomorrow2ChannelAdapter
     private val tomorrow2ChannelPresenter = Tomorrow2ChannelPresenter(this)
@@ -36,7 +39,7 @@ class Tomorrow2ChannelFragment(val tomorrow2: List<ProgramResponse>?) : BaseFrag
         return context!!
     }
 
-    override fun refreshAdapter() {
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
         adapter.notifyDataSetChanged()
     }
 

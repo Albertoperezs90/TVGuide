@@ -8,5 +8,5 @@ interface IFirebaseService {
     fun getCurrentUser() : FirebaseUser?
     fun logginUser(user: User)
     fun createUser(user: User)
-    fun getUserFromDb(key: String) : User
+    fun getUserFromDb(key: String)
 }

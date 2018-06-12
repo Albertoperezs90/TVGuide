@@ -21,7 +21,7 @@ class SchedulePresenter (val scheduleView: ScheduleContract.View): ScheduleContr
     }
 
     override fun loadData() {
-        repository.mapProgramResponseToScheduleProgamming(scheduleView.getPrograms())
+        repository.mapProgramResponseToScheduleProgamming()
     }
 
     override fun addProgramListToScheduleProgramming(programs: List<ProgramResponse>) {

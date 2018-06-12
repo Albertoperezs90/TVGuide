@@ -10,6 +10,7 @@ import android.transition.TransitionManager
 import android.view.View
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.aperezsi.tvguide.data.ui.initial.InitialActivity
 import com.aperezsi.tvguide.data.ui.main.MainActivity
@@ -50,5 +51,9 @@ class InitialFragment : BaseFragment(), InitialFragmentContract.View {
         val intent = Intent(activity, MainActivity::class.java)
         intent.putExtra("programs", apiResponse)
         startActivity(intent)
+    }
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
+
     }
 }

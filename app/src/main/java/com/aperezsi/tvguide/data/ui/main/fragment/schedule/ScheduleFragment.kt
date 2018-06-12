@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
  */
 class ScheduleFragment(val nowPrograms: List<ProgramResponse>) : BaseFragment(), ScheduleContract.View {
 
+
     private val schedulePresenter: SchedulePresenter = SchedulePresenter(this)
     private lateinit var adapter: ScheduleAdapter
 
@@ -35,6 +36,10 @@ class ScheduleFragment(val nowPrograms: List<ProgramResponse>) : BaseFragment(),
     }
 
     override fun refreshAdapter() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
         this.adapter.notifyDataSetChanged()
     }
 
