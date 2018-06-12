@@ -2,6 +2,7 @@ package com.aperezsi.tvguide.data.ui.main.fragment.tomorrow
 
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.service.Storage
 import com.aperezsi.tvguide.data.ui.main.data.tomorrow.TomorrowAdapter
 import com.aperezsi.tvguide.data.ui.main.data.tomorrow.TomorrowRepository
 
@@ -15,6 +16,12 @@ class TomorrowPresenter (val tomorrowView: TomorrowContract.View): TomorrowContr
     }
 
     override fun buildAdapter(layout: Int) {
+        val favourites = Storage(tomorrowView.getFragmentActivity()).getIdChannels()
+        val newList = mutableListOf<ProgramResponse>()
+        favourites.forEach {favourites ->
+            newList.addAll(tomorrowPrograms!!.filter { it.IdChannel == favourites })
+        }
+        tomorrowPrograms = newList
         val adapter = TomorrowAdapter(tomorrowView.getFragmentContext(), layout, tomorrowPrograms!!)
         tomorrowView.attachAdapter(adapter)
         tomorrowView.notifyDataAdapterChanged()

@@ -6,6 +6,7 @@ import com.aperezsi.tvguide.data.service.interfaces.IStorage
 
 class Storage (activity: Activity) : IStorage {
 
+
     private val sharedPreferences = activity.getSharedPreferences("teletexto", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
@@ -47,6 +48,23 @@ class Storage (activity: Activity) : IStorage {
         }else {
             return false
         }
+    }
+
+    override fun removeIdChannel(idChannel: String) {
+        val list = getIdChannels().toMutableList()
+        list.remove(idChannel)
+        var idChannels = ""
+        list.forEach {
+            if (idChannels.isEmpty()){
+                idChannels=it
+            }else {
+                idChannels+=",$it"
+            }
+        }
+        editor.remove("channel")
+        editor.apply()
+        editor.putString("channel", idChannels)
+        editor.commit()
     }
 
 }
