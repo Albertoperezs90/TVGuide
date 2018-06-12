@@ -1,4 +1,4 @@
-package com.aperezsi.tvguide.data.ui.channel.data
+package com.aperezsi.tvguide.data.ui.channel.data.tomorrow1
 
 import android.content.Context
 import android.content.Intent
@@ -16,11 +16,10 @@ import kotlinx.android.synthetic.main.fragment_channel.view.*
 import kotlinx.android.synthetic.main.fragment_channel_row.view.*
 import kotlinx.android.synthetic.main.fragment_now_row.view.*
 
-class ChannelAdapter (val context: Context,
-                      val layout: Int,
-                      val dataList: List<ProgramResponse>) : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
-
-    private val TAG = "ChannelAdapter"
+class Tomorrow1ChannelAdapter (val context: Context,
+                               val layout: Int,
+                               val dataList: List<ProgramResponse>) : RecyclerView.Adapter<Tomorrow1ChannelAdapter.ViewHolder>() {
+    
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -46,8 +45,8 @@ class ChannelAdapter (val context: Context,
                 Picasso.get().load(dataItem.Image).into(itemView.ivFragmentChannelRow)
             }
 
-            itemView.tvFragmentChannelEpochStartRow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvFragmentChannelTitleRow.text = dataItem.Title
+            itemView.tvFragmentChannelEpochStartRow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvFragmentChannelCategoryRow.text = dataItem.Category
         }
     }

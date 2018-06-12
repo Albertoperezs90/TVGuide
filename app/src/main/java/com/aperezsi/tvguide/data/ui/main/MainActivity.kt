@@ -1,34 +1,33 @@
 package com.aperezsi.tvguide.data.ui.main
 
-import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.SearchView
 import android.util.Log
+import android.util.Patterns
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
-import com.aperezsi.tvguide.R.id.textView
-import android.widget.Toast
-import com.aperezsi.tvguide.R.id.search_src_text
-import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
-import com.aperezsi.tvguide.R.id.drawerLayout
-import android.os.Bundle
-
-
-
-
+import com.aperezsi.tvguide.data.data.User
+import com.aperezsi.tvguide.data.service.AuthValidator
+import com.aperezsi.tvguide.data.service.FirebaseService
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.dialog_login.view.*
+import kotlinx.android.synthetic.main.nav_drawer_header.*
+import org.jetbrains.anko.alert
+import kotlin.math.log
 
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -36,33 +35,25 @@ class MainActivity : BaseActivity(), MainContract.View {
     private val mainPresenter: MainPresenter = MainPresenter(this)
     private lateinit var searchView: SearchView
     private lateinit var menuItem: MenuItem
+    private var user: User? = null
+    private lateinit var alertDialog: AlertDialog
 
     override fun getContentResource(): Int = R.layout.activity_main
     override fun getContext(): Context = this
     override fun setFragmentNavigation() = mainPresenter.setNavigation(supportFragmentManager, tabs, viewpager)
+    override fun getActivity(): MainActivity = this
 
     override fun onStart() {
         super.onStart()
         setSupportActionBar(toolbar)
         navigation_view.setNavigationItemSelectedListener(this)
         attachDrawerLayout()
+        mainPresenter.checkIfUserIsLogged()
+        if (mainPresenter.isFirsTime()){
+            mainPresenter.loadFavourites()
+        }
     }
 
-
-    override fun initListeners() {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                searchView.setQuery("", false)
-                menuItem?.collapseActionView()
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                mainPresenter.filterSuggestions(newText)
-                return true
-            }
-        })
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -74,6 +65,28 @@ class MainActivity : BaseActivity(), MainContract.View {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun initListeners() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchView.setQuery("", false)
+                menuItem.collapseActionView()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                mainPresenter.filterSuggestions(newText)
+                return true
+            }
+        })
+
+        drawer_header.setOnClickListener {
+            if (user != null){
+                //TODO VENTANA MODIFICAR FOTOS, ETC...
+            }else {
+                buildDialog()
+            }
+        }
+    }
 
     override fun customizeSearchView() {
         val autoComplete = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as SearchView.SearchAutoComplete
@@ -108,13 +121,18 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.nav_item_one -> toast("clicked one")
-            R.id.nav_item_two -> toast("clicked two")
-            R.id.nav_item_three -> toast("clicked three")
-            R.id.nav_item_four -> toast("clicked four")
-            R.id.nav_item_five -> toast("clicked five")
-            R.id.nav_item_six -> toast("clicked six")
-            R.id.nav_item_seven -> toast("clicked seven")
+            R.id.all_programs -> mainPresenter.filterPrograms("")
+            R.id.favourites_programs -> mainPresenter.filterPrograms("fav")
+            R.id.movies_programs -> mainPresenter.filterPrograms("movie")
+            R.id.series_programs -> mainPresenter.filterPrograms("serie")
+            R.id.news_programs -> mainPresenter.filterPrograms("newspaper")
+            R.id.graduate_programs -> mainPresenter.filterPrograms("graduate")
+            R.id.sport_programs -> mainPresenter.filterPrograms("deportes")
+            R.id.documental_programs -> mainPresenter.filterPrograms("documental")
+            R.id.footbal_programs -> mainPresenter.filterPrograms("futbol")
+            R.id.music_programs -> mainPresenter.filterPrograms("musica")
+            R.id.joke_programs -> mainPresenter.filterPrograms("humor")
+            R.id.cook_programs -> mainPresenter.filterPrograms("cook")
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -122,9 +140,59 @@ class MainActivity : BaseActivity(), MainContract.View {
         return true
     }
 
-    override fun refreshAdapter() {
 
+    override fun refreshUser(user: FirebaseUser?) {
+        if (user != null){
+            val name = user.email!!.substring(0, user.email!!.indexOf('@'))
+            this.user = User(user.uid, name, user.email!!, "", "")
+            drawer_header_tv_name.text = name
+        }
     }
 
 
+    override fun updateUI(data: Intent) {
+        user = data.getSerializableExtra("user") as User
+        mainPresenter.createUser(user!!)
+        drawer_header_tv_name.text = user!!.nickname
+        toast("Bienvenido ${user!!.nickname}")
+    }
+
+
+    override fun buildDialog() {
+        val inflater = layoutInflater
+        val loginLayout = inflater.inflate(R.layout.dialog_login, null)
+        alertDialog = AlertDialog.Builder(this)
+            .setView(loginLayout)
+            .setPositiveButton(R.string.accept, null)
+            .setNegativeButton(R.string.cancel,null)
+            .create()
+
+        alertDialog.setOnShowListener { dialogInterface ->
+            val button = (dialogInterface as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
+            button.setOnClickListener { view ->
+                val email = loginLayout.email.text.toString()
+                val password = loginLayout.pass.text.toString()
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    if (!password.isNullOrEmpty()){
+                        val user = User("", email.substring(0, email.indexOf('@')),email, password)
+                        mainPresenter.createUser(user)
+                    }else {
+                        toast("El campo contraseña es obligatorio")
+                    }
+                }else {
+                    toast("Debe escribir un e-mail valido")
+                }
+            }
+        }
+        alertDialog.show()
+    }
+
+
+    override fun alertDismiss() {
+        alertDialog.dismiss()
+    }
+
+    override fun showToast(message: String) {
+        toast(message)
+    }
 }
