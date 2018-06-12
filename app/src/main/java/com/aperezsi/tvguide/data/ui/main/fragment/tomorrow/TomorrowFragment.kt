@@ -50,4 +50,8 @@ class TomorrowFragment : BaseFragment(), TomorrowContract.View {
     override fun setContainerRefresh(flag: Boolean) {
         refresh_tomorrow_container.isRefreshing = flag
     }
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
+        this.adapter.notifyDataSetChanged()
+    }
 }

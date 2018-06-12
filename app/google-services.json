@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "459198118677",
+    "firebase_url": "https://tvguide-78908.firebaseio.com",
+    "project_id": "tvguide-78908",
+    "storage_bucket": "tvguide-78908.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459198118677:android:4e1a369e7fd6eb2f",
+        "android_client_info": {
+          "package_name": "com.aperezsi.tvguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459198118677-2aq8ij1peskpuoldmpo4o9mdfe6dkq6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aperezsi.tvguide",
+            "certificate_hash": "f8475eae61fad0ebabd424fb98f14cc78f948457"
+          }
+        },
+        {
+          "client_id": "459198118677-nk9qp0n4udtam8meaefhdl42kt7g92nn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "459198118677-hko3o1vrav0n377atsuldn9j5gnanqgm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "459198118677-hko3o1vrav0n377atsuldn9j5gnanqgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFbwdAIVHftFqg2cnhG7rdnEH_t9EtoqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459198118677-nk9qp0n4udtam8meaefhdl42kt7g92nn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

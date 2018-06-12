@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import java.io.Serializable
 
+/* REGION PROGRAMS */
 data class APIResponse (val response: List<ProgramResponse>) : Serializable
 data class ProgramResponse (val GenericType: String?,
                             val Id: String?,
@@ -16,43 +17,19 @@ data class ProgramResponse (val GenericType: String?,
                             val Score: String?,
                             val Image: String?,
                             val EpochStart: String?,
-                            val EpochEnd: String?) : Serializable, SearchSuggestion {
+                            val EpochEnd: String?) : Serializable
 
+data class ChannelProgamming(var today: List<ProgramResponse>? = null,
+                             var tomorrow: List<ProgramResponse>? = null,
+                             var tomorrow1: List<ProgramResponse>? = null,
+                             var tomorrow2: List<ProgramResponse>? = null,
+                             var tomorrow3: List<ProgramResponse>? = null)
 
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString()) {
-    }
+data class ScheduleProgramming(var scheduleProgramming: MutableList<ProgramResponse>)
+/* ENDREGION PROGRAMS */
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+/* REGION USERS */
 
-    }
+data class User(var id: String = "", var nickname: String = "", var email: String = "", var password: String = "", var avatar: String = "") : Serializable
 
-    override fun describeContents(): Int {
-        return Parcelable.CONTENTS_FILE_DESCRIPTOR
-    }
-
-    override fun getBody(): String {
-        return Title!!
-    }
-
-
-    companion object CREATOR : Parcelable.Creator<ProgramResponse> {
-        override fun createFromParcel(parcel: Parcel): ProgramResponse {
-            return ProgramResponse(parcel)
-        }
-
-        override fun newArray(size: Int): Array<ProgramResponse?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+/* ENDREGION USERS */

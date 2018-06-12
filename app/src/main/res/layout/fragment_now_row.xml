@@ -29,7 +29,7 @@
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:scaleType="fitXY"
-               android:src="@color/colorPrimaryLight_Darker"/>
+               android:src="@android:color/white"/>
            
            <LinearLayout
                android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:textSize="13sp"
-                       android:textColor="@android:color/white"
+                       android:textColor="@android:color/background_dark"
                        android:layout_weight="2"
                        android:text="Prueba" />
 
