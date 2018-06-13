@@ -20,7 +20,6 @@ class NowAdapter (val context: Context,
                   val layout: Int,
                   val dataList: List<ProgramResponse>) : RecyclerView.Adapter<NowAdapter.ViewHolder>() {
 
-    private val TAG = "NowAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -57,7 +56,6 @@ class NowAdapter (val context: Context,
         private fun loadDetailProgram(dataItem: ProgramResponse) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("program", Gson().toJson(dataItem))
-            intent.putExtra("fragment", TAG)
             context.startActivity(intent)
         }
 

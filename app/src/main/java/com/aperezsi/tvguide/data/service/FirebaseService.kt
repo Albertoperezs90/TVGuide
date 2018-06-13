@@ -13,7 +13,6 @@ import com.google.firebase.database.ValueEventListener
 
 class FirebaseService (val presenter: MainPresenter) : IFirebaseService {
 
-
     val authInstance = FirebaseAuth.getInstance()
     val dbInstance = FirebaseDatabase.getInstance()
 
@@ -26,10 +25,9 @@ class FirebaseService (val presenter: MainPresenter) : IFirebaseService {
         authInstance.createUserWithEmailAndPassword(user.email, user.password)
                .addOnCompleteListener(presenter.getActivity()) { task ->
                    if (task.isSuccessful){
-                       val firebaseUser = authInstance.currentUser
-                       user.id = firebaseUser!!.uid
                        val refUser = dbInstance.getReference("users")
                        val userId = refUser.push().key
+                       user.id = userId!!
                        refUser.child(userId!!).setValue(user)
                        presenter.saveUserToPreferences(userId)
                        presenter.alertDismiss()
