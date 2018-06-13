@@ -48,6 +48,14 @@ class Tomorrow2ChannelAdapter (val context: Context,
             itemView.tvFragmentChannelTitleRow.text = dataItem.Title
             itemView.tvFragmentChannelEpochStartRow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvFragmentChannelCategoryRow.text = dataItem.Category
+
+            itemView.cardViewChannelRow.setOnClickListener { loadDetailProgram(dataItem) }
+        }
+
+        private fun loadDetailProgram(dataItem: ProgramResponse) {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("program", Gson().toJson(dataItem))
+            context.startActivity(intent)
         }
     }
 

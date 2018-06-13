@@ -49,4 +49,28 @@ class Storage (activity: Activity) : IStorage {
         }
     }
 
+    override fun removeIdChannel(idChannel: String) {
+        val list = getIdChannels().toMutableList()
+        list.remove(idChannel)
+        var idChannels = ""
+        list.forEach {
+            if (idChannels.isEmpty()){
+                idChannels=it
+            }else {
+                idChannels+=",$it"
+            }
+        }
+        editor.remove("channel")
+        editor.apply()
+        editor.putString("channel", idChannels)
+        editor.commit()
+    }
+
+    override fun removeUser() {
+        editor.remove("user")
+        editor.apply()
+        editor.commit()
+    }
+
+
 }
