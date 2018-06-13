@@ -1,8 +1,11 @@
 package com.aperezsi.tvguide.data.ui.main
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
+import android.util.Base64
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.User
@@ -12,6 +15,7 @@ import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
+import java.io.ByteArrayOutputStream
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
@@ -80,8 +84,8 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         }
     }
 
-    override fun refreshUser() {
-        mainView.refreshUser(firebaseService.getCurrentUser())
+    override fun refreshUser(user: User?) {
+        mainView.refreshUser(user)
     }
 
     override fun logginUser(user: User) {
@@ -95,7 +99,7 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     override fun logoutUser() {
         firebaseService.logoutUser()
         Storage(mainView.getActivity()).removeUser()
-        refreshUser()
+        refreshUser(null)
     }
 
 
@@ -117,5 +121,24 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
                     .get(0))
         }
         return favs
+    }
+
+    override fun encodeBitmap(bitmap: Bitmap) : String {
+        val byteArray = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArray)
+        val photoByte = byteArray.toByteArray()
+
+        val encodedBitmap = Base64.encodeToString(photoByte, Base64.DEFAULT)
+        return encodedBitmap
+    }
+
+    override fun decodeBitmap(user: User): Bitmap {
+        val encodedBitmap = user.avatar
+        val decodedBytes = Base64.decode(user.avatar.substring(user.avatar.indexOf(",") + 1), Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+
+    override fun updateUserData(user: User) {
+        firebaseService.updateUser(user)
     }
 }

@@ -18,6 +18,7 @@ interface ChatFragmentContract {
         fun attachAdapter(adapter: ChatAdapter)
         fun getRecyclerLayout() : Int
         fun postMessage(message: Message)
+        fun initListeners()
     }
 
     interface Presenter : BasePresenter {

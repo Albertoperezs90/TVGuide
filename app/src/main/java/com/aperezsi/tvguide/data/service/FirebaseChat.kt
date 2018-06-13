@@ -37,20 +37,19 @@ class FirebaseChat (val presenter: ChatFragmentPresenter) : IFirebaseChat {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val messages: MutableList<Message> = mutableListOf()
-                dataSnapshot.children.forEach{
-                    if (it.key.equals("messages")){
-                        it.children.forEach {
-                            messages.add(it.getValue(Message::class.java)!!)
-                        }
-                        val value = dataSnapshot.getValue(Chat::class.java)
-                        if (value != null){
-                            presenter.updateChat(value, messages)
-                        }else {
-                            presenter.setChat(createChat(chat))
+                val value = dataSnapshot.getValue(Chat::class.java)
+                if (value != null){
+                    dataSnapshot.children.forEach{
+                        if (it.key.equals("messages")){
+                            it.children.forEach {
+                                messages.add(it.getValue(Message::class.java)!!)
+                            }
                         }
                     }
+                    presenter.updateChat(value, messages)
+                }else {
+                    presenter.setChat(createChat(chat))
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {

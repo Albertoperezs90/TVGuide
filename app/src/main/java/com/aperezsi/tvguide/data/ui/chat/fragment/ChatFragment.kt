@@ -21,7 +21,6 @@ import android.view.inputmethod.InputMethodManager
 @SuppressLint("ValidFragment")
 class ChatFragment (private val chat: Chat) : BaseFragment(), ChatFragmentContract.View {
 
-
     private val chatFragmentPresenter = ChatFragmentPresenter(this)
     private lateinit var adapter : ChatAdapter
 
@@ -31,19 +30,20 @@ class ChatFragment (private val chat: Chat) : BaseFragment(), ChatFragmentContra
 
     override fun onStart() {
         chatFragmentPresenter.getUser()
+        super.onStart()
+    }
 
+    override fun getRecyclerLayout(): Int {
+        return R.layout.activity_chat_program_dialog
+    }
+
+    override fun initListeners() {
         ivSendChat.setOnClickListener {
             val message = Message("", User(), etChatMessage.text.toString())
             chatFragmentPresenter.postMessage(message)
             etChatMessage.setText("")
             hideKeyboard()
         }
-
-        super.onStart()
-    }
-
-    override fun getRecyclerLayout(): Int {
-        return R.layout.activity_chat_program_dialog
     }
 
     override fun updateAdapter() {

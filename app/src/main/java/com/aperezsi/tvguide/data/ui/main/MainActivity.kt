@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -156,11 +157,13 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
 
-    override fun refreshUser(user: FirebaseUser?) {
+    override fun refreshUser(user: User?) {
         if (user != null){
             val name = user.email!!.substring(0, user.email!!.indexOf('@'))
-            this.user = User(user.uid, name, user.email!!, "", "")
+            val photo = mainPresenter.decodeBitmap(user)
+            this.user = user
             drawer_header_tv_name.text = name
+            drawer_header_iv.setImageBitmap(photo)
             drawer_header_logout.visibility = View.VISIBLE
         }else {
             drawer_header_tv_name.text = getString(R.string.drawer_login)
@@ -229,6 +232,10 @@ class MainActivity : BaseActivity(), MainContract.View {
         if (requestCode == PICK_IMAGE){
             if (data != null){
                 val inputStream = this.getContentResolver().openInputStream(data.data)
+                val photo = BitmapFactory.decodeStream(inputStream)
+                user!!.avatar = mainPresenter.encodeBitmap(photo)
+                mainPresenter.updateUserData(user!!)
+                drawer_header_iv.setImageBitmap(photo)
             }
         }
     }

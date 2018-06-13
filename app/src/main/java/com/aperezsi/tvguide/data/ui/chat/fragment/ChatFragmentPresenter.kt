@@ -29,6 +29,7 @@ class ChatFragmentPresenter (val chatFragmentView: ChatFragmentContract.View) : 
         this.chat = chat
         this.messages = chat.messages.values.toMutableList()
         buildAdapter()
+        chatFragmentView.initListeners()
     }
 
     override fun updateChat(chat: Chat, messages: MutableList<Message>) {
