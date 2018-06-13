@@ -11,16 +11,16 @@
     </style>
 
     <style name="hintColor" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/light_blue</item>
-        <item name="android:textColorHint">@color/light_blue</item>
-        <item name="colorAccent">@color/light_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Theme.Hint.LightBlue" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">@color/light_blue</item>
-        <item name="colorControlActivated">@color/light_blue</item>
-        <item name="colorControlHighlight">@color/light_blue</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
     </style>
 
     <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
@@ -40,5 +40,9 @@
         <item name="floatingSearch_menuItemIconColor">@color/dark_gray</item>
         <item name="floatingSearch_suggestionRightIconColor">@color/dark_gray</item>
         <item name="floatingSearch_actionMenuOverflowColor">@android:color/white</item>
+    </style>
+
+    <style name="DialogLogin" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorPrimaryLight_Darker</item>
     </style>
 </resources>

@@ -14,6 +14,8 @@ interface ChannelContract {
         fun setFragmentNavigation()
         fun startProgressView()
         fun endProgressView()
+        fun updateFav()
+        fun setFav()
     }
 
     interface Presenter : BasePresenter {

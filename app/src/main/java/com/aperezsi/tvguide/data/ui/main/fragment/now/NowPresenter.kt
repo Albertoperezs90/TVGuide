@@ -1,6 +1,7 @@
 package com.aperezsi.tvguide.data.ui.main.fragment.now
 
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.service.Storage
 import com.aperezsi.tvguide.data.ui.main.data.now.NowAdapter
 import com.aperezsi.tvguide.data.ui.main.data.now.NowRepository
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
@@ -19,6 +20,12 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
         nowPrograms = nowView.getNowPrograms().toMutableList()!!
         originalNowPrograms = nowPrograms
         nowPrograms = filterNowPrograms()!!.toMutableList()
+        val favourites = Storage(nowView.getFragmentActivity()).getIdChannels()
+        val newList = mutableListOf<ProgramResponse>()
+        favourites.forEach {favourites ->
+            newList.addAll(nowPrograms!!.filter { it.IdChannel == favourites })
+        }
+        nowPrograms = newList
         val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
@@ -42,7 +49,9 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
     override fun updatePrograms(programs: List<ProgramResponse>?) {
         nowPrograms!!.clear()
         nowPrograms!!.addAll(programs!!)
-        nowPrograms!!.addAll(filterNowPrograms()!!)
+        val filteredPrograms = filterNowPrograms()
+        nowPrograms!!.clear()
+        nowPrograms!!.addAll(filteredPrograms!!)
         nowView.notifyDataAdapterChanged()
         nowView.setContainerRefresh(false)
     }

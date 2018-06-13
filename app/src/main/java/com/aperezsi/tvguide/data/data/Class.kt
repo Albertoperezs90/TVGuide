@@ -33,3 +33,12 @@ data class ScheduleProgramming(var scheduleProgramming: MutableList<ProgramRespo
 data class User(var id: String = "", var nickname: String = "", var email: String = "", var password: String = "", var avatar: String = "") : Serializable
 
 /* ENDREGION USERS */
+
+
+/* REGION CHAT */
+
+data class Messages(var keys: MutableList<String> = mutableListOf(), var messages: MutableList<Message> = mutableListOf())
+data class Chat (var id: String = "", var idProgram: String = "", var epochEnd: String = "", var messages: HashMap<String, Message> = hashMapOf()) : Serializable
+data class Message(var id: String = "", var user: User = User(), var message: String = "") : Serializable
+
+/* ENDREGION CHAT */
