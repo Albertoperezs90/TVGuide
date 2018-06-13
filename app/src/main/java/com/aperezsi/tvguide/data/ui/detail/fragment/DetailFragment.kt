@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.Chat
@@ -43,6 +44,12 @@ class DetailFragment (private val program: ProgramResponse) : BaseFragment(), De
     }
 
     override fun initAttributes() {
+        if (program.Type != "movie"){
+            ratingBar.visibility = View.GONE
+        }else {
+            ratingBar.visibility = View.VISIBLE
+            ratingBar.rating = program.Score?.toFloat()!! / 2
+        }
         collapsing_toolbar.title = detailFragmentPresenter.getProgram().Title
 
         if (program.Image.isNullOrEmpty()){
