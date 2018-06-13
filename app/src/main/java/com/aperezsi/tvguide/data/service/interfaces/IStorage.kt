@@ -10,4 +10,6 @@ interface IStorage {
     fun getIdChannels() : List<String>
     fun setFirstTimeLoaded()
     fun isFirstTime() : Boolean
+    fun removeIdChannel(idChannel: String)
+    fun removeUser()
 }

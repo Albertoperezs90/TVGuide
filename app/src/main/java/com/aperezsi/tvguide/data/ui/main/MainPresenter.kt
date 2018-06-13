@@ -1,22 +1,21 @@
 package com.aperezsi.tvguide.data.ui.main
 
-import android.content.Context
-import android.content.DialogInterface
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
-import android.view.ViewManager
+import android.util.Base64
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.FirebaseService
+import com.aperezsi.tvguide.data.service.Storage
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
-import com.aperezsi.tvguide.data.ui.main.fragment.now.NowFragment
 import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
-import com.google.android.gms.auth.api.signin.internal.Storage
-import org.jetbrains.anko.AlertBuilder
-import org.jetbrains.anko.customView
+import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
+import java.io.ByteArrayOutputStream
 
 class MainPresenter constructor(val mainView: MainContract.View) : MainContract.Presenter, FragmentNavigation.Presenter {
 
@@ -44,10 +43,13 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     }
 
 
-
     override fun filterPrograms(filter: String) {
         nowPrograms!!.clear()
-        nowPrograms!!.addAll(originalProgramList!!.filter { it.Type == filter })
+        when (filter){
+            "" -> nowPrograms!!.addAll(originalProgramList!!)
+            "fav" -> nowPrograms!!.addAll(getFavouritePrograms())
+            else -> nowPrograms!!.addAll(originalProgramList!!.filter { it.Type == filter })
+        }
         val position = viewPager.currentItem
         val fragment = (viewPager.adapter as FragmentAdapter).registeredFragments[position] as BaseFragment
         fragment.refreshAdapter(nowPrograms!!)
@@ -82,8 +84,8 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         }
     }
 
-    override fun refreshUser() {
-        mainView.refreshUser(firebaseService.getCurrentUser())
+    override fun refreshUser(user: User?) {
+        mainView.refreshUser(user)
     }
 
     override fun logginUser(user: User) {
@@ -94,11 +96,49 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         firebaseService.createUser(user)
     }
 
+    override fun logoutUser() {
+        firebaseService.logoutUser()
+        Storage(mainView.getActivity()).removeUser()
+        refreshUser(null)
+    }
+
+
     override fun showToast(message: String) {
         mainView.showToast(message)
     }
 
     override fun alertDismiss() {
         mainView.alertDismiss()
+    }
+
+    override fun getFavouritePrograms(): MutableList<ProgramResponse> {
+        val idChannels = com.aperezsi.tvguide.data.service.Storage(mainView.getActivity()).getIdChannels()
+        var favs = mutableListOf<ProgramResponse>()
+        idChannels.forEach { fav ->
+            favs.add(originalProgramList!!
+                    .filter { it.IdChannel == fav }
+                    .filter { TimeHelper().getCurrentSecondsEpoch() < it.EpochEnd!!.toInt() }
+                    .get(0))
+        }
+        return favs
+    }
+
+    override fun encodeBitmap(bitmap: Bitmap) : String {
+        val byteArray = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArray)
+        val photoByte = byteArray.toByteArray()
+
+        val encodedBitmap = Base64.encodeToString(photoByte, Base64.DEFAULT)
+        return encodedBitmap
+    }
+
+    override fun decodeBitmap(user: User): Bitmap {
+        val encodedBitmap = user.avatar
+        val decodedBytes = Base64.decode(user.avatar.substring(user.avatar.indexOf(",") + 1), Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+
+    override fun updateUserData(user: User) {
+        firebaseService.updateUser(user)
     }
 }

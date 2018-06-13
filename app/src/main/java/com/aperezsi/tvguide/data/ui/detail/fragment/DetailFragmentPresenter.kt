@@ -8,7 +8,9 @@ import android.view.Menu
 import android.widget.ImageView
 import android.widget.Toolbar
 import com.aperezsi.tvguide.R
+import com.aperezsi.tvguide.data.data.Chat
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.service.Storage
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.URL
@@ -50,5 +52,17 @@ class DetailFragmentPresenter (val detailFragment: DetailFragmentContract.View) 
 
     override fun setProgram(program: ProgramResponse) {
         this.program = program
+    }
+
+    override fun openChat() {
+        val userId = Storage(detailFragment.getFragmentActivity()).isUserLogged()
+        if (!userId.isNullOrEmpty()){
+            val programId = program.Id
+            val epochEnd = program.EpochEnd
+            val chat: Chat = Chat(programId+epochEnd,programId!!, epochEnd!!)
+            detailFragment.startChat(chat)
+        }else {
+            detailFragment.showToast("Inicie sesión para poder participar en la comunidad")
+        }
     }
 }

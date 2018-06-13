@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.support.design.widget.NavigationView
 import android.view.ViewManager
 import com.aperezsi.tvguide.data.data.APIResponse
@@ -23,11 +24,12 @@ interface MainContract {
         fun attachDrawerLayout()
         fun customizeSearchView()
         fun initListeners()
-        fun refreshUser(user: FirebaseUser?)
+        fun refreshUser(user: User?)
         fun updateUI(data: Intent)
         fun buildDialog()
         fun alertDismiss()
         fun showToast(message: String)
+        fun pickImage()
     }
 
     interface Presenter : BasePresenter {
@@ -39,10 +41,15 @@ interface MainContract {
         fun createUser(user: User)
         fun showToast(message: String)
         fun alertDismiss()
-        fun refreshUser()
+        fun refreshUser(user: User?)
         fun logginUser(user: User)
         fun loadFavourites()
         fun isFirsTime() : Boolean
         fun filterPrograms(filter: String)
+        fun getFavouritePrograms() : MutableList<ProgramResponse>
+        fun logoutUser()
+        fun encodeBitmap(bitmap: Bitmap) : String
+        fun decodeBitmap(user : User) : Bitmap
+        fun updateUserData(user: User)
     }
 }
