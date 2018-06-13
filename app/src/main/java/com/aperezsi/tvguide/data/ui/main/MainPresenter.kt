@@ -7,6 +7,7 @@ import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.FirebaseService
+import com.aperezsi.tvguide.data.service.Storage
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.aperezsi.tvguide.data.utils.adapters.FragmentAdapter
 import com.aperezsi.tvguide.data.utils.helpers.FragmentNavigation
@@ -90,6 +91,13 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
     override fun createUser(user: User) {
         firebaseService.createUser(user)
     }
+
+    override fun logoutUser() {
+        firebaseService.logoutUser()
+        Storage(mainView.getActivity()).removeUser()
+        refreshUser()
+    }
+
 
     override fun showToast(message: String) {
         mainView.showToast(message)

@@ -46,5 +46,6 @@ interface MainContract {
         fun isFirsTime() : Boolean
         fun filterPrograms(filter: String)
         fun getFavouritePrograms() : MutableList<ProgramResponse>
+        fun logoutUser()
     }
 }

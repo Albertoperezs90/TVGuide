@@ -6,7 +6,6 @@ import com.aperezsi.tvguide.data.service.interfaces.IStorage
 
 class Storage (activity: Activity) : IStorage {
 
-
     private val sharedPreferences = activity.getSharedPreferences("teletexto", Context.MODE_PRIVATE)
     private val editor = sharedPreferences.edit()
 
@@ -66,5 +65,12 @@ class Storage (activity: Activity) : IStorage {
         editor.putString("channel", idChannels)
         editor.commit()
     }
+
+    override fun removeUser() {
+        editor.remove("user")
+        editor.apply()
+        editor.commit()
+    }
+
 
 }

@@ -24,6 +24,7 @@ import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.AuthValidator
 import com.aperezsi.tvguide.data.service.FirebaseService
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.dialog_login.*
 import kotlinx.android.synthetic.main.dialog_login.view.*
 import kotlinx.android.synthetic.main.nav_drawer_header.*
 import org.jetbrains.anko.alert
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onStart() {
         super.onStart()
+        alertDialog = AlertDialog.Builder(this).create()
         setSupportActionBar(toolbar)
         navigation_view.setNavigationItemSelectedListener(this)
         attachDrawerLayout()
@@ -92,6 +94,12 @@ class MainActivity : BaseActivity(), MainContract.View {
             if (user != null){
                 pickImage()
             }
+        }
+
+        drawer_header_logout.setOnClickListener {
+            it.visibility = View.GONE
+            mainPresenter.logoutUser()
+            user = null
         }
     }
 
@@ -153,6 +161,10 @@ class MainActivity : BaseActivity(), MainContract.View {
             val name = user.email!!.substring(0, user.email!!.indexOf('@'))
             this.user = User(user.uid, name, user.email!!, "", "")
             drawer_header_tv_name.text = name
+            drawer_header_logout.visibility = View.VISIBLE
+        }else {
+            drawer_header_tv_name.text = getString(R.string.drawer_login)
+            drawer_header_iv.setImageResource(R.drawable.user_photo)
         }
     }
 
@@ -170,13 +182,14 @@ class MainActivity : BaseActivity(), MainContract.View {
         val loginLayout = inflater.inflate(R.layout.dialog_login, null)
         alertDialog = AlertDialog.Builder(this)
             .setView(loginLayout)
-            .setPositiveButton(R.string.accept, null)
-            .setNegativeButton(R.string.cancel,null)
             .create()
 
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent)
+
+
         alertDialog.setOnShowListener { dialogInterface ->
-            val button = (dialogInterface as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
-            button.setOnClickListener { view ->
+
+            loginLayout.loginAccept.setOnClickListener {
                 val email = loginLayout.email.text.toString()
                 val password = loginLayout.pass.text.toString()
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
@@ -190,6 +203,8 @@ class MainActivity : BaseActivity(), MainContract.View {
                     toast("Debe escribir un e-mail valido")
                 }
             }
+            loginLayout.loginCancel.setOnClickListener { alertDismiss() }
+
         }
         alertDialog.show()
     }

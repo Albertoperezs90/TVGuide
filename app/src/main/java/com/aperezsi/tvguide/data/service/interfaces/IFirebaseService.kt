@@ -9,4 +9,5 @@ interface IFirebaseService {
     fun logginUser(user: User)
     fun createUser(user: User)
     fun getUserFromDb(key: String)
+    fun logoutUser()
 }

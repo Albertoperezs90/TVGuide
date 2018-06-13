@@ -11,4 +11,5 @@ interface IStorage {
     fun setFirstTimeLoaded()
     fun isFirstTime() : Boolean
     fun removeIdChannel(idChannel: String)
+    fun removeUser()
 }

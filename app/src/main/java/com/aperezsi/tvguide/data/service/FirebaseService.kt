@@ -17,8 +17,12 @@ class FirebaseService (val presenter: MainPresenter) : IFirebaseService {
     val dbInstance = FirebaseDatabase.getInstance()
 
     override fun getCurrentUser(): FirebaseUser? {
-        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser = authInstance.currentUser
         return currentUser
+    }
+
+    override fun logoutUser() {
+        authInstance.signOut()
     }
 
     override fun createUser(user: User) {
@@ -30,20 +34,22 @@ class FirebaseService (val presenter: MainPresenter) : IFirebaseService {
                        user.id = userId!!
                        refUser.child(userId!!).setValue(user)
                        presenter.saveUserToPreferences(userId)
+                       presenter.refreshUser()
                        presenter.alertDismiss()
                    }else {
-                       presenter.showToast("Ya existe un usuario con el email ${user.email}")
+                       logginUser(user)
                    }
                }
     }
 
     override fun logginUser(user: User) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(user.email, user.password)
+        authInstance.signInWithEmailAndPassword(user.email, user.password)
                 .addOnCompleteListener(presenter.getActivity()) {  task ->
                     if (task.isSuccessful){
                         presenter.refreshUser()
+                        presenter.alertDismiss()
                     }else {
-                        Log.e("logginUser", task.exception.toString())
+                        presenter.showToast("El usuario y/o contraseña son incorrectos")
                     }
                 }
     }
