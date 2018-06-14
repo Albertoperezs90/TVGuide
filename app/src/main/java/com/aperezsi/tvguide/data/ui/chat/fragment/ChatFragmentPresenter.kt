@@ -36,6 +36,7 @@ class ChatFragmentPresenter (val chatFragmentView: ChatFragmentContract.View) : 
         if (!this::chat.isInitialized){
             setChat(chat)
         }
+
         this.messages.clear()
         this.messages.addAll(messages)
         chatFragmentView.updateAdapter()

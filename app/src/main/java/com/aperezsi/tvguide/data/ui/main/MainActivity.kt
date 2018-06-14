@@ -24,6 +24,7 @@ import org.jetbrains.anko.toast
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.service.AuthValidator
 import com.aperezsi.tvguide.data.service.FirebaseService
+import com.aperezsi.tvguide.data.utils.helpers.ImageHelper
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.dialog_login.*
 import kotlinx.android.synthetic.main.dialog_login.view.*
@@ -160,10 +161,14 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun refreshUser(user: User?) {
         if (user != null){
             val name = user.email!!.substring(0, user.email!!.indexOf('@'))
-            val photo = mainPresenter.decodeBitmap(user)
+            if (!user.avatar.isNullOrEmpty()){
+                val photo = ImageHelper.decodeBitmap(user)
+                drawer_header_iv.setImageBitmap(photo)
+            }
+
             this.user = user
             drawer_header_tv_name.text = name
-            drawer_header_iv.setImageBitmap(photo)
+
             drawer_header_logout.visibility = View.VISIBLE
         }else {
             drawer_header_tv_name.text = getString(R.string.drawer_login)
@@ -233,7 +238,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             if (data != null){
                 val inputStream = this.getContentResolver().openInputStream(data.data)
                 val photo = BitmapFactory.decodeStream(inputStream)
-                user!!.avatar = mainPresenter.encodeBitmap(photo)
+                user!!.avatar = ImageHelper.encodeBitmap(photo)
                 mainPresenter.updateUserData(user!!)
                 drawer_header_iv.setImageBitmap(photo)
             }
