@@ -19,6 +19,7 @@ interface NowContract {
         fun notifyDataAdapterChanged()
         fun setContainerRefresh(flag: Boolean)
         fun getNowPrograms() : List<ProgramResponse>
+        fun updatePrograms(filteredPrograms: List<ProgramResponse>)
     }
 
     interface Presenter : BasePresenter {

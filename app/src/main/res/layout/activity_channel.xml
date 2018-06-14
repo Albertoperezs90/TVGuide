@@ -53,6 +53,18 @@
                         android:fitsSystemWindows="true"
                         app:layout_collapseMode="parallax" />
 
+                    <ImageView
+                        android:id="@+id/heart_fav"
+                        android:tag="no_fav"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax"
+                        android:src="@drawable/heart_empty"/>
+
                 </RelativeLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -63,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@android:color/black" />
 

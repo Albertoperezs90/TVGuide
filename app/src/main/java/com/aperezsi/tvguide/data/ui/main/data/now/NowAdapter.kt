@@ -10,6 +10,7 @@ import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.channel.ChannelActivity
 import com.aperezsi.tvguide.data.ui.detail.DetailActivity
+import com.aperezsi.tvguide.data.utils.Constants
 import com.aperezsi.tvguide.data.utils.helpers.TimeHelper
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -19,7 +20,6 @@ class NowAdapter (val context: Context,
                   val layout: Int,
                   val dataList: List<ProgramResponse>) : RecyclerView.Adapter<NowAdapter.ViewHolder>() {
 
-    private val TAG = "NowAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -39,7 +39,7 @@ class NowAdapter (val context: Context,
 
     inner class ViewHolder(viewLayout: View, context: Context) : RecyclerView.ViewHolder(viewLayout){
         fun bind(dataItem: ProgramResponse){
-            Picasso.get().load("http://images.miguia.tv/channels/xhdpi/channel_${dataItem.IdChannel}.png").into(itemView.ivChannelLogo)
+            Picasso.get().load("${Constants.ImageEndPoint}${dataItem.IdChannel}${Constants.PngExtension}").into(itemView.ivChannelLogo)
             itemView.tvTimeStartProgramNow.text = TimeHelper().epochToStringDate(dataItem.EpochStart!!, "HH:mm")
             itemView.tvTitleProgramNow.text = dataItem.Title
             itemView.tvTempCapNow.text = dataItem.Category
@@ -56,7 +56,6 @@ class NowAdapter (val context: Context,
         private fun loadDetailProgram(dataItem: ProgramResponse) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("program", Gson().toJson(dataItem))
-            intent.putExtra("fragment", TAG)
             context.startActivity(intent)
         }
 

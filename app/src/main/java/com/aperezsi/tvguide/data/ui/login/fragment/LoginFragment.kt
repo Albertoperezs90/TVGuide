@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.aperezsi.tvguide.R
+import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,7 +24,6 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
     override fun onStart() {
         super.onStart()
         startVideoView()
-        initGoogleSignIn()
     }
 
     override fun startVideoView() {
@@ -37,7 +37,7 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
         }
     }
 
-    override fun initGoogleSignIn() {
+   /* override fun initGoogleSignIn() {
         val button: TextView = share_button.getChildAt(0) as TextView
         button.text = getString(R.string.google_signin)
 
@@ -51,5 +51,10 @@ class LoginFragment : BaseFragment(), LoginFragmentContract.View {
             val intent = googleClient.signInIntent
             startActivityForResult(intent, 1)
         }
+    }*/
+
+    override fun refreshAdapter(programs: List<ProgramResponse>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }

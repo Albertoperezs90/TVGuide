@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/drawer_header"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_header"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
@@ -13,31 +14,52 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/drawer_header_iv"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/user_photo"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FFFFFF"/>
-
-    <TextView
-        android:id="@+id/drawer_header_tv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:textSize="20sp"
-        android:text="@string/drawer_greetings"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/drawer_header_tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:textStyle="bold"
-        android:text="@string/drawer_login"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        <ImageView
+            android:id="@+id/drawer_header_logout"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_exit_drawer_header"
+            tools:ignore="RtlCompat" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/drawer_header_iv"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/user_photo"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/drawer_header_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/drawer_header_iv"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/drawer_greetings"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/drawer_header_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="10dp"
+            android:text="@string/drawer_login"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
 </LinearLayout>
