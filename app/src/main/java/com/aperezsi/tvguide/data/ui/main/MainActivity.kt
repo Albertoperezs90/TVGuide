@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.APIResponse
+import com.aperezsi.tvguide.data.data.ScheduleProgramming
 import com.aperezsi.tvguide.data.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -30,6 +31,8 @@ import kotlinx.android.synthetic.main.dialog_login.*
 import kotlinx.android.synthetic.main.dialog_login.view.*
 import kotlinx.android.synthetic.main.nav_drawer_header.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import kotlin.math.log
 
 
@@ -49,6 +52,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onStart() {
         super.onStart()
+
+        doAsync {
+            mainPresenter.loadScheduleData()
+        }
+
         alertDialog = AlertDialog.Builder(this).create()
         setSupportActionBar(toolbar)
         navigation_view.setNavigationItemSelectedListener(this)
@@ -79,7 +87,11 @@ class MainActivity : BaseActivity(), MainContract.View {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                mainPresenter.filterSuggestions(newText)
+                if (!newText.isNullOrEmpty()){
+                    mainPresenter.filterSuggestions(newText)
+                }else {
+                    mainPresenter.filterPrograms("fav")
+                }
                 return true
             }
         })
@@ -243,6 +255,10 @@ class MainActivity : BaseActivity(), MainContract.View {
                 drawer_header_iv.setImageBitmap(photo)
             }
         }
+    }
+
+    override fun getScheduleData(): MutableList<ScheduleProgramming> {
+        return mainPresenter.getScheduleData()
     }
 
 }

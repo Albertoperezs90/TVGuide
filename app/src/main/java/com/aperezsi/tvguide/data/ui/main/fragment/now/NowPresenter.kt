@@ -15,17 +15,24 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
     var nowPrograms: MutableList<ProgramResponse>? = null
     var originalNowPrograms: List<ProgramResponse>? = null
     val nowRepository: NowRepository = NowRepository(this)
+    private var filtered: List<ProgramResponse>? = null
 
     override fun buildAdapter(layout: Int) {
         nowPrograms = nowView.getNowPrograms().toMutableList()!!
         originalNowPrograms = nowPrograms
-        nowPrograms = filterNowPrograms()!!.toMutableList()
+        filtered = filterNowPrograms()!!
+        nowPrograms = filtered!!.toMutableList()
         val favourites = Storage(nowView.getFragmentActivity()).getIdChannels()
         val newList = mutableListOf<ProgramResponse>()
         favourites.forEach {favourites ->
             newList.addAll(nowPrograms!!.filter { it.IdChannel == favourites })
         }
-        nowPrograms = newList
+        if (newList.isEmpty()){
+            nowPrograms = filtered!!.toMutableList()
+        }else {
+            nowPrograms = newList
+        }
+
         val adapter = NowAdapter(nowView.getFragmentContext(), layout, nowPrograms!!)
         nowView.attachAdapter(adapter)
         nowView.notifyDataAdapterChanged()
@@ -33,9 +40,10 @@ class NowPresenter (val nowView: NowContract.View) : NowContract.Presenter {
 
     override fun filterNowPrograms(): List<ProgramResponse>? {
         var filteredList: List<ProgramResponse>? = null
+        val currentEpoch = TimeHelper().getCurrentSecondsEpoch()
         filteredList =
                 nowPrograms!!
-                .filter { TimeHelper().getCurrentSecondsEpoch() < it.EpochEnd!!.toInt() }
+                .filter { currentEpoch < it.EpochEnd!!.toLong() }
                 .distinctBy { it.IdChannel }
                 .toMutableList()
         return filteredList
