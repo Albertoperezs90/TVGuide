@@ -6,7 +6,9 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.data.ScheduleProgramming
 import com.aperezsi.tvguide.data.ui.base.BaseFragment
+import com.aperezsi.tvguide.data.ui.main.MainActivity
 import com.aperezsi.tvguide.data.ui.main.data.schedule.ScheduleAdapter
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
@@ -15,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
  * Created by alberto on 06/05/2018.
  */
 class ScheduleFragment(val nowPrograms: List<ProgramResponse>) : BaseFragment(), ScheduleContract.View {
-
 
     private val schedulePresenter: SchedulePresenter = SchedulePresenter(this)
     private lateinit var adapter: ScheduleAdapter
@@ -45,5 +46,9 @@ class ScheduleFragment(val nowPrograms: List<ProgramResponse>) : BaseFragment(),
 
     override fun getPrograms(): List<ProgramResponse> {
         return nowPrograms
+    }
+
+    override fun getScheduleData(): MutableList<ScheduleProgramming> {
+        return (activity as MainActivity).getScheduleData()
     }
 }

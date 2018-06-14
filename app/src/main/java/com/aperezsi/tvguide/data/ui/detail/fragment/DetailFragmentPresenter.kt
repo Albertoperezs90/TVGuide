@@ -1,6 +1,8 @@
 package com.aperezsi.tvguide.data.ui.detail.fragment
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
@@ -11,8 +13,10 @@ import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.Chat
 import com.aperezsi.tvguide.data.data.ProgramResponse
 import com.aperezsi.tvguide.data.service.Storage
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.lang.Exception
 import java.net.URL
 
 class DetailFragmentPresenter (val detailFragment: DetailFragmentContract.View) : DetailFragmentContract.Presenter {
@@ -33,12 +37,15 @@ class DetailFragmentPresenter (val detailFragment: DetailFragmentContract.View) 
         collapsedMenu = menu
     }
 
+
     override fun getPaletteColor(header: ImageView) {
         doAsync {
             val bitmap = BitmapFactory.decodeStream(URL(program.Image).openStream())
             uiThread {
-                Palette.from(bitmap).generate {palette ->
-                    detailFragment.setCollapsingBarColor(palette.getMutedColor(R.attr.colorPrimary))
+                if (bitmap != null) {
+                    Palette.from(bitmap).generate {palette ->
+                        detailFragment.setCollapsingBarColor(palette.getMutedColor(R.attr.colorPrimary))
+                    }
                 }
             }
         }
