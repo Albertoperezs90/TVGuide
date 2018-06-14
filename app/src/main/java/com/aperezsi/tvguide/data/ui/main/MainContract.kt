@@ -48,8 +48,6 @@ interface MainContract {
         fun filterPrograms(filter: String)
         fun getFavouritePrograms() : MutableList<ProgramResponse>
         fun logoutUser()
-        fun encodeBitmap(bitmap: Bitmap) : String
-        fun decodeBitmap(user : User) : Bitmap
         fun updateUserData(user: User)
     }
 }

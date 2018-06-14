@@ -123,21 +123,6 @@ class MainPresenter constructor(val mainView: MainContract.View) : MainContract.
         return favs
     }
 
-    override fun encodeBitmap(bitmap: Bitmap) : String {
-        val byteArray = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArray)
-        val photoByte = byteArray.toByteArray()
-
-        val encodedBitmap = Base64.encodeToString(photoByte, Base64.DEFAULT)
-        return encodedBitmap
-    }
-
-    override fun decodeBitmap(user: User): Bitmap {
-        val encodedBitmap = user.avatar
-        val decodedBytes = Base64.decode(user.avatar.substring(user.avatar.indexOf(",") + 1), Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-    }
-
     override fun updateUserData(user: User) {
         firebaseService.updateUser(user)
     }
