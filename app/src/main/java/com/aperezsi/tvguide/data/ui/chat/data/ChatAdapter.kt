@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_chat_program_dialog.view.*
 import android.view.ViewGroup.LayoutParams.FILL_PARENT
 import android.widget.RelativeLayout
 import com.aperezsi.tvguide.R.*
+import com.aperezsi.tvguide.data.utils.helpers.ImageHelper
 import org.jetbrains.anko.alignEnd
 
 
@@ -60,7 +61,7 @@ class ChatAdapter (val context: Context,
             itemView.tvMessageUserChat.text = dataItem.message
 
             if (!dataItem.user.avatar.isNullOrEmpty()){
-                Picasso.get().load(dataItem.user.avatar).into(itemView.ivUserMessageChat)
+                itemView.ivUserMessageChat.setImageBitmap(ImageHelper.decodeBitmap(dataItem.user))
             }else {
                 itemView.ivUserMessageChat.setImageResource(drawable.no_image)
             }
