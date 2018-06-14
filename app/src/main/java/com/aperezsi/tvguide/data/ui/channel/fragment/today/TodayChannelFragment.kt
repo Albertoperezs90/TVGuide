@@ -3,6 +3,7 @@ package com.aperezsi.tvguide.data.ui.channel.fragment.today
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import com.aperezsi.tvguide.R
 import com.aperezsi.tvguide.data.data.ProgramResponse
@@ -28,6 +29,7 @@ class TodayChannelFragment(val today: List<ProgramResponse>?) : BaseFragment(), 
         rvFragmentChannel.layoutManager = LinearLayoutManager(context)
         adapter = todayChannelPresenter.buildAdapter(R.layout.fragment_channel_row)
         rvFragmentChannel.adapter = adapter
+
         super.onStart()
     }
 

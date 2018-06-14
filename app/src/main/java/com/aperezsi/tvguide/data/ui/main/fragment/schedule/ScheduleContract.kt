@@ -3,6 +3,7 @@ package com.aperezsi.tvguide.data.ui.main.fragment.schedule
 import android.content.Context
 import android.support.v4.app.FragmentActivity
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.data.ScheduleProgramming
 import com.aperezsi.tvguide.data.ui.base.BasePresenter
 import com.aperezsi.tvguide.data.ui.base.BaseView
 import com.aperezsi.tvguide.data.ui.main.data.schedule.ScheduleAdapter
@@ -15,6 +16,7 @@ interface ScheduleContract {
         fun buildAdapter()
         fun refreshAdapter()
         fun getPrograms() : List<ProgramResponse>
+        fun getScheduleData() : MutableList<ScheduleProgramming>
     }
 
     interface Presenter : BasePresenter {
