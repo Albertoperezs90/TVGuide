@@ -22,7 +22,9 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun onStart() {
         val program = intent.getSerializableExtra("program") as ProgramResponse
         tvChat.text = program.Title
-        Picasso.get().load(program.Image).into(ivChat)
+        if (!program.Image.isNullOrEmpty()){
+            Picasso.get().load(program.Image).into(ivChat)
+        }
         super.onStart()
     }
 
