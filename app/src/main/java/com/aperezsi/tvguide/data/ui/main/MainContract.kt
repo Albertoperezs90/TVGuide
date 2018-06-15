@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView
 import android.view.ViewManager
 import com.aperezsi.tvguide.data.data.APIResponse
 import com.aperezsi.tvguide.data.data.ProgramResponse
+import com.aperezsi.tvguide.data.data.ScheduleProgramming
 import com.aperezsi.tvguide.data.data.User
 import com.aperezsi.tvguide.data.ui.base.BasePresenter
 import com.aperezsi.tvguide.data.ui.base.BaseView
@@ -30,6 +31,7 @@ interface MainContract {
         fun alertDismiss()
         fun showToast(message: String)
         fun pickImage()
+        fun getScheduleData() : MutableList<ScheduleProgramming>
     }
 
     interface Presenter : BasePresenter {
@@ -49,5 +51,7 @@ interface MainContract {
         fun getFavouritePrograms() : MutableList<ProgramResponse>
         fun logoutUser()
         fun updateUserData(user: User)
+        fun loadScheduleData()
+        fun getScheduleData() : MutableList<ScheduleProgramming>
     }
 }
